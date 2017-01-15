@@ -14,23 +14,39 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JWindow;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
-import donnee.mod;
+import data.mod;
 
 public class accueil {
 	
 	public static void main(String[] args) {
 		JFrame fenetre;
 		JTabbedPane jtp;
+		JWindow JW_loading;
 		
 		// TODO Auto-generated method stub
+		
+		JW_loading = new JWindow();
+		JW_loading.setVisible(true);
+		JW_loading.setSize(500, 300);
+		JW_loading.setLocationRelativeTo(null);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JW_loading.dispose();
+		
 		fenetre = new JFrame();
 		fenetre.setVisible(true);
 		fenetre.setTitle("MineModding");
 		fenetre.setSize(1200, 700);
 		fenetre.setLocationRelativeTo(null);
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jtp = new JTabbedPane();
 		fenetre.add(jtp);
 		

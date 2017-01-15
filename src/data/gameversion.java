@@ -1,13 +1,11 @@
-package donnee;
+package data;
 
 import java.util.List;
 
-public class profil {
-
+public class gameversion {
+		
 	private int id;
 	private String label;
 	private List<mod> lesMods;
-	private gameversion uneVersion;
-	
 
 }
