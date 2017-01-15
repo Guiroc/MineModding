@@ -1,0 +1,35 @@
+-----------------------------------------
+----------Workspace vers Github----------
+
+
+1.	- Faites un clic droit sur votre projet eclipse : -> Team -> Share project
+
+2.	- Choisissez git dans la liste affichée; Cochez la case "Use or create repository in parent folder of project"
+	- sélectionner votre projet
+	- cliquez sur Create Repository et cliquez sur Finish. Cela créera un fichier ".git" (En supposant que vous avez déjà git installé).
+
+3.  - Faites un clic droit sur le projet -> Team -> Commit...
+    - Faites glisser les fichiers que vous souhaitez valider et cliquez sur Commit
+
+4.  - Accédez à la vue git repositories dans eclipse : Team -> Show in repositories View
+	- Développez le dossier git de votre projet
+	- Cliquez avec le bouton droit sur Remotes -> Create Remotes...
+	- Le nom distant apparaît comme origine, vous pouvez le changer (je mets en générale le nom du projet)
+	- Sélectionnez l'option 'Configure Push' et cliquez sur ok
+	- Dans la boîte de dialogue suivante, cliquez sur "Change..."
+	- Remplissez:
+		- url git
+		- nom d'utilisateur
+		- mot de passe 
+	- Cliquez sur "Finish"
+	- Clequez sur "Save et push", Ceci configure git Push.
+
+5.  - Pour configurer Fetch, développez Remote -> déveleppez le nom distant donné précedement -> clique droit "Configure Fetch"
+	- cliquez sur Add -> Master Branch -> Next -> Finish -> Save and Fetch
+
+6.	- Pour configurer Master Branch, développez Branch -> développez Local -> clique droit sur Master Branch -> Configure Branch
+	- remplisez :
+		- Remote: origine 
+		- Upstream Branch: refs / heads / master 
+
+	En rafraîchissant votre repo, vous serez en mesure de voir les fichiers que vous avez commit et vous pouvez faire push et pull. 
