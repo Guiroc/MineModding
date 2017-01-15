@@ -75,6 +75,9 @@ class ModsProfilPanel extends JPanel {
 	  JScrollPane a = new JScrollPane(Lmods);
 	  a.setPreferredSize(new Dimension(150,200));
 	  add(a);
+	  dlmMods.addElement("ab");
+	  dlmMods.addElement("bb");
+	  dlmMods.addElement("cc");
 	  
   }
 }
