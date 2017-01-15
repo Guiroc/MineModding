@@ -1,24 +1,13 @@
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JWindow;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
-
-import data.mod;
 
 public class accueil {
 	
@@ -26,6 +15,7 @@ public class accueil {
 		JFrame fenetre;
 		JTabbedPane jtp;
 		JWindow JW_loading;
+		JProgressBar JPB_loading;
 		
 		// TODO Auto-generated method stub
 		
@@ -33,6 +23,15 @@ public class accueil {
 		JW_loading.setVisible(true);
 		JW_loading.setSize(500, 300);
 		JW_loading.setLocationRelativeTo(null);
+		
+		JPB_loading = new JProgressBar();
+		JPB_loading.setValue(0);
+		JPB_loading.setMaximum(100);
+		JPB_loading.setMinimum(0);
+		JPB_loading.setStringPainted(true);
+		JW_loading.getContentPane().add(JPB_loading);
+		
+		
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -68,11 +67,11 @@ class AccueilPanel extends JPanel {
 class ModsProfilPanel extends JPanel {
 
   public ModsProfilPanel() {
-	  JList Lmods;
-	  DefaultListModel dlmMods;
+	  JList<String> Lmods;
+	  DefaultListModel<String> dlmMods;
 	  
-	  dlmMods = new DefaultListModel();
-	  Lmods = new JList(dlmMods);
+	  dlmMods = new DefaultListModel<String>();
+	  Lmods = new JList<String>(dlmMods);
 	  Lmods.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 	  Lmods.setLayoutOrientation(JList.VERTICAL);
 	  Lmods.setVisibleRowCount(-1);
