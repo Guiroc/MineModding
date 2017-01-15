@@ -1,21 +1,24 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class modspack {
 	
 	private Integer id;
 	private String label;
-	private modspackversion Version;
+	private List<modspackversion> uneVersion;
 	
 	public modspack() {
 		this.id = null;
 		this.label = null;
-		this.Version = null;
+		this.uneVersion = new ArrayList<modspackversion>();
 	}
 	
-	public modspack(int id, String label, modspackversion version) {
+	public modspack(int id, String label, List<modspackversion> uneVersion) {
 		this.id = id;
 		this.label = label;
-		this.Version = version;
+		this.uneVersion = uneVersion;
 	}
 
 	public Integer getId() {
@@ -34,12 +37,12 @@ public class modspack {
 		this.label = label;
 	}
 
-	public modspackversion getVersion() {
-		return Version;
+	public List<modspackversion> getuneVersion() {
+		return uneVersion;
 	}
 
-	public void setVersion(modspackversion version) {
-		Version = version;
+	public void setuneVersion(List<modspackversion> uneVersion) {
+		this.uneVersion = uneVersion;
 	}
 	
 }

@@ -6,19 +6,22 @@ import java.util.List;
 public class modspackversion {
 	
 	private Integer id;
-	private List<mod> lesMods;
+	private modspack unModspackversion;
 	private gameversion uneVersion;
+	private List<mod> lesMods;
 	
 	public modspackversion() {
 		this.id = null;
-		this.lesMods = new ArrayList<mod>();
+		this.unModspackversion = null;
 		this.uneVersion = null;
+		this.lesMods = new ArrayList<mod>();
 	}
 	
-	public modspackversion(Integer id, List<mod> lesMods, gameversion uneVersion) {
+	public modspackversion(Integer id, modspack unModspackversion, gameversion uneVersion, List<mod> lesMods) {
 		this.id = id;
-		this.lesMods = lesMods;
+		this.unModspackversion = unModspackversion;
 		this.uneVersion = uneVersion;
+		this.lesMods = lesMods;
 	}
 
 	public Integer getId() {
@@ -27,6 +30,15 @@ public class modspackversion {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	
+	public modspack getunModspackversion() {
+		return unModspackversion;
+	}
+
+	public void setunModspackversion(modspack unModspackversion) {
+		this.unModspackversion = unModspackversion;
 	}
 
 	public List<mod> getLesMods() {

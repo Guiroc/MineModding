@@ -9,26 +9,29 @@ public class profile {
 	private String label;
 	private List<mod> lesMods;
 	private gameversion uneVersion;
+	private modspackversion unModspackversion;
 	
 	public profile() {
 		this.id = null;
 		this.label = null;
 		this.lesMods = new ArrayList<mod>();
 		this.uneVersion = null;
+		this.unModspackversion = null;
 	}
 	
-	public profile(int id, String label, List<mod> lesMods, gameversion uneVersion) {
+	public profile(int id, String label, List<mod> lesMods, gameversion uneVersion, modspackversion unModspackversion) {
 		this.id = id;
 		this.label = label;
 		this.lesMods = lesMods;
 		this.uneVersion = uneVersion;
+		this.unModspackversion = unModspackversion;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -54,6 +57,14 @@ public class profile {
 
 	public void setUneVersion(gameversion uneVersion) {
 		this.uneVersion = uneVersion;
+	}
+
+	public modspackversion getunModspackversion() {
+		return unModspackversion;
+	}
+
+	public void setunModspackversion(modspackversion unModspackversion) {
+		this.unModspackversion = unModspackversion;
 	}
 
 }
