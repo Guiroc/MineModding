@@ -1,13 +1,13 @@
-﻿create table gameversion(
+create table gameversion(
 	id int,
-	label varchar(8)
+	label varchar(8) not null,
 	
 	constraint pk_gameversion primary key (id)
 );
 	
 create table mod(
 	id int,
-	label varchar(50),
+	label varchar(50) not null,
 	
 	uneVersion int,
 	
@@ -17,7 +17,7 @@ create table mod(
 
 create table modversion(
 	id int,
-	version varchar(20),
+	label varchar(20) not null,
 	
 	unMod int,
 	
@@ -27,13 +27,14 @@ create table modversion(
 
 create table modspack(
 	id int,
-	label varchar(50),
+	label varchar(50) not null,
 	
 	constraint pk_modspack primary key (id),
 );
 
 create table modspackversion(
 	id int,
+	label varchar(20) not null;
 	
 	unModspackversion int,
 	uneVersion int,
@@ -45,7 +46,7 @@ create table modspackversion(
 
 create table profile(
 	id int,
-	label varchar(50),
+	label varchar(50) not null,
 	
 	uneVersion int,
 	unModspackversionversion int,

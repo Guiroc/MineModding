@@ -3,18 +3,18 @@ package data;
 public class modversion {
 	
 	private Integer id;
-	private String version;
+	private String label;
 	private mod unMod;
 	
 	public modversion() {
 		this.id = null;
-		this.version = null;
+		this.label = null;
 		this.unMod = null;
 	}
 	
-	public modversion(Integer id, String version, mod unMod) {
+	public modversion(Integer id, String label, mod unMod) {
 		this.id = id;
-		this.version = version;
+		this.label = label;
 		this.unMod = unMod;
 	}
 
@@ -26,12 +26,12 @@ public class modversion {
 		this.id = id;
 	}
 
-	public String getVersion() {
-		return version;
+	public String getlabel() {
+		return label;
 	}
 
-	public void setVersion(String version) {
-		this.version = version;
+	public void setVersion(String label) {
+		this.label = label;
 	}
 
 	public mod getUnMod() {

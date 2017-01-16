@@ -19,6 +19,14 @@ public class profile {
 		this.unModspackversion = null;
 	}
 	
+	public profile(int id, String label, List<mod> lesMods, gameversion uneVersion) {
+		this.id = id;
+		this.label = label;
+		this.lesMods = lesMods;
+		this.uneVersion = uneVersion;
+		this.unModspackversion = null;
+	}
+	
 	public profile(int id, String label, List<mod> lesMods, gameversion uneVersion, modspackversion unModspackversion) {
 		this.id = id;
 		this.label = label;
