@@ -1,6 +1,9 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -16,20 +19,38 @@ public class accueil {
 		JTabbedPane jtp;
 		JWindow JW_loading;
 		JProgressBar JPB_loading;
+		JLabel JL_loading;
 		
 		// TODO Auto-generated method stub
 		
 		JW_loading = new JWindow();
-		JW_loading.setVisible(true);
 		JW_loading.setSize(500, 300);
 		JW_loading.setLocationRelativeTo(null);
 		
+		JPanel j = new JPanel();
+		j.setBackground(Color.BLUE);
+		JW_loading.getContentPane().add(j);
+		
+		JL_loading = new JLabel();
+		JL_loading.setSize(450, 50);
+		
 		JPB_loading = new JProgressBar();
-		JPB_loading.setValue(0);
 		JPB_loading.setMaximum(100);
 		JPB_loading.setMinimum(0);
+		JPB_loading.setValue(50);
 		JPB_loading.setStringPainted(true);
-		JW_loading.getContentPane().add(JPB_loading);
+		JPB_loading.setBounds(50, 200, 250, 50);
+		JPB_loading.contains(50, 50);
+		
+		//JW_loading.getContentPane().add(JL_loading);
+		//JW_loading.getContentPane().add(JPB_loading);
+		//j.setLayout(mgr);
+		j.add(JL_loading);
+		j.add(JPB_loading);
+		
+		
+		JW_loading.setVisible(true);
+		
 		
 		
 		try {
@@ -103,4 +124,5 @@ class ModsPackPanel extends JPanel {
 
     
   }
+  
 }
