@@ -1,3 +1,4 @@
+package window;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
