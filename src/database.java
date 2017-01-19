@@ -13,7 +13,6 @@ import data.gameversion;
 
 
 public class database {
-	public static final JList Lgameversion = new JList();
 	
 	public Statement database(){
 		
@@ -52,6 +51,7 @@ public class database {
 		sql = "select * from gameversion";
 		
 		try {
+			JL_loading.
 			state = database();
 			res = state.executeQuery(sql);
 			
@@ -59,7 +59,7 @@ public class database {
 			while(res.next())	{
 				
 				gameversion gameversion = new gameversion(res.getInt("gameversion_id"), res.getString("gameversion_label"));
-				dlmMods.addElement(gameversion);
+				dlmMods.addElement(gameversion.getLabel());
 //				int old_gameversion = res.getInt("gameversion_id");
 //				do{
 //					

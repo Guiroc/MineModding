@@ -45,4 +45,9 @@ public class gameversion {
 		this.lesMods = lesMods;
 	}
 
+	@Override
+	public String toString() {
+		return label;
+	}
+
 }

@@ -8,8 +8,8 @@ import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 
 public class loading_window extends JWindow{
-		JProgressBar JPB_loading;
-		JLabel JL_loading;
+		public JProgressBar JPB_loading;
+		public JLabel JL_loading;
 		JLabel JL_titre;
 		JPanel j;
 		Font F_titre;
