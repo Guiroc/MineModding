@@ -8,14 +8,13 @@ import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 
 public class loading_window extends JWindow{
-	
-	public loading_window(){
-	
 		JProgressBar JPB_loading;
 		JLabel JL_loading;
 		JLabel JL_titre;
 		JPanel j;
 		Font F_titre;
+	
+		public loading_window(){		
 		
 		F_titre = new Font(null, Font.PLAIN, 40);
 		
@@ -50,13 +49,13 @@ public class loading_window extends JWindow{
 		this.getContentPane().add(j);
 		this.setVisible(true);
 		
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.dispose();
-		main_window a = new main_window();
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		this.dispose();
+//		main_window a = new main_window();
 		}
 }

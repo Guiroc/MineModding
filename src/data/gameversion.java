@@ -9,9 +9,9 @@ public class gameversion {
 	private String label;
 	private List<mod> lesMods;
 	
-	public gameversion() {
-		this.id = null;
-		this.label = null;
+	public gameversion(int id, String label) {
+		this.id = id;
+		this.label = label;
 		this.lesMods = new ArrayList<mod>();
 	}
 	

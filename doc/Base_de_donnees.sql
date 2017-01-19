@@ -1,8 +1,8 @@
 create table gameversion(
-	id int,
-	label varchar(8) not null,
+	gameversion_id serial,
+	gameversion_label varchar(8) not null,
 	
-	constraint pk_gameversion primary key (id)
+	constraint pk_gameversion primary key (gameversion_id)
 );
 	
 create table mod(
