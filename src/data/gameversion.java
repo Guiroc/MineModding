@@ -44,6 +44,10 @@ public class gameversion {
 	public void setLesMods(List<mod> lesMods) {
 		this.lesMods = lesMods;
 	}
+	
+	public void addlesMods(mod unmod){
+		this.lesMods.add(unmod);
+	}
 
 	@Override
 	public String toString() {

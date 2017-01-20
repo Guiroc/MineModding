@@ -10,6 +10,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
 import data.gameversion;
+import data.mod;
 import window.loading_window;
 
 
@@ -30,7 +31,7 @@ public class database {
 			Class.forName("org.postgresql.Driver");
 			adress = "jdbc:postgresql://localhost:5432/test";
 			user = "postgres";
-			password = "azerty";
+			password = "pgadmin";
 		
 			conn = DriverManager.getConnection(adress, user, password);
 			state = conn.createStatement();
@@ -41,35 +42,40 @@ public class database {
 		return (state);
 	}
 	
-	public  DefaultListModel read(loading_window b)	{
+	public  List read(loading_window b)	{
 		
 		Statement state;
-		DefaultListModel dlmMods;
+		List dlmMods;
 		String sql;
 		ResultSet res;
 		
-		dlmMods = new DefaultListModel();
-		sql = "select * from gameversion";
+		dlmMods = new ArrayList();
+		sql = "select * "
+				+ "from gameversion"
+				+ " left join mod"
+				+ " on gameversion_id = mod_uneVersion"
+				+ " order by gameversion_label asc, mod_label";
 		
 		try {
 			b.JL_loading.setText("Chargement des mods...");
 			b.JPB_loading.setValue(100);
 			state = database();
 			res = state.executeQuery(sql);
-			
 				
 			while(res.next())	{
 				
 				gameversion gameversion = new gameversion(res.getInt("gameversion_id"), res.getString("gameversion_label"));
-				dlmMods.addElement(gameversion.getLabel());
-//				int old_gameversion = res.getInt("gameversion_id");
-//				do{
-//					
-//				}while(res.next() && res.getInt("gameversion_id") != old_gameversion);
+				dlmMods.add(gameversion);
+				int old_gameversion = res.getInt("gameversion_id");
+				
+				while(res.wasNull() && res.getInt("gameversion_id") != old_gameversion){
+					mod mod = new mod (res.getInt("mod_id"), res.getString("mod_label"), gameversion);
+					gameversion.addlesMods(mod);
+				}
 			}
 			state.close();
 			res.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		b.JL_loading.setText("Terminé");

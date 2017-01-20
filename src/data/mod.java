@@ -10,11 +10,11 @@ public class mod {
 	private List<modversion> lesModVersion;
 	private gameversion uneVersion;
 	
-	public mod() {
-		id = null;
-		label = null;
-		lesModVersion = new ArrayList<modversion>();
-		uneVersion = null;
+	public mod(int id, String label, gameversion uneVersion) {
+		this.id = id;
+		this.label = label;
+		this.lesModVersion = new ArrayList<modversion>();
+		this.uneVersion = uneVersion;
 	}
 	
 	public mod(int id, String label, List<modversion> lesmodVersion, gameversion uneVersion) {

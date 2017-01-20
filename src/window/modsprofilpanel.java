@@ -1,31 +1,44 @@
 package window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 public class modsprofilpanel extends JPanel {
-	public JList<String> Lmods;
-	public DefaultListModel<String> dlmMods;
-	public JScrollPane JSPmods;
-	public JScrollPane a;
-	public JList<String> Lmodsselected;
+	 JList<String> Lmods;
+	 DefaultListModel<String> dlmMods;
+	 JScrollPane JSPmods;
+	 JScrollPane a;
+	 JList<String> Lmodsselected;
+	 JComboBox JCBgameversion;
 	  
-  public modsprofilpanel(DefaultListModel b) {
+  public modsprofilpanel(List b) {
+	  
+	  JCBgameversion = new JComboBox();
+	  JCBgameversion.setBounds(0, 0, 100, 20);
+	  
+	  JCBgameversion.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	Lmods = new JList (JCBgameversion.getSelectedObjects());
+		    }
+		});
 	  
 	  
-	  dlmMods = b;
-	  Lmods = new JList<String>(dlmMods);
+	  dlmMods = new DefaultListModel();
+//	  Lmods = new JList<String>(dlmMods);
 	  Lmods.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 	  Lmods.setLayoutOrientation(JList.VERTICAL);
 	  Lmods.setVisibleRowCount(-1);
 	  //dlmMods.addElement("aa");
 	  
 	  JSPmods = new JScrollPane(Lmods);
-	  JSPmods.setBounds(0, 0, 150, 300);
+	  JSPmods.setBounds(100, 0, 150, 300);
 	  
 	  Lmodsselected = new JList<String>();
 	  Lmodsselected.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -33,10 +46,20 @@ public class modsprofilpanel extends JPanel {
 	  Lmodsselected.setVisibleRowCount(-1);
 	  
 	  a = new JScrollPane(Lmodsselected);
-	  a.setBounds(150, 0, 150, 300);
+	  a.setBounds(250, 0, 150, 300);
 	  
+	  this.addLgameversion(b);
 	  this.setLayout(null);
 	  this.add(a);
 	  this.add(JSPmods);
+	  this.add(JCBgameversion);
+  }
+  
+  public void addLgameversion(List a){
+	  int nbmax = a.size();
+	  
+	  for (int i = 0 ; i < nbmax ; i++){
+	  JCBgameversion.addItem(a.get(i));
+	  }
   }
 }

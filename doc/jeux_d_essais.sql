@@ -1,6 +1,8 @@
 /*nom de la base : test*/
 
+drop table mod;
 drop table gameversion;
+
 
 create table gameversion(
 	gameversion_id serial,
@@ -36,3 +38,16 @@ insert into gameversion (gameversion_label) values('1.10');
 insert into gameversion (gameversion_label) values('1.10.1');
 insert into gameversion (gameversion_label) values('1.10.2');
 insert into gameversion (gameversion_label) values('1.11');
+
+create table mod(
+	mod_id serial,
+	mod_label varchar(50) not null,
+	
+	mod_uneVersion int,
+	
+	constraint pk_mod primary key (mod_id),
+	constraint fk_mod_uneVersion foreign key (mod_uneVersion) references gameversion (gameversion_id)
+		
+);
+
+insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 8);

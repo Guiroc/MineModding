@@ -14,7 +14,7 @@ public class main_window extends JFrame {
 		public JTabbedPane jtp;
 		public modsprofilpanel profil;
 		
-	public main_window(DefaultListModel a) {
+	public main_window(List a) {
 		
 		
 		
