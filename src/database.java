@@ -10,6 +10,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
 import data.gameversion;
+import window.loading_window;
 
 
 public class database {
@@ -40,7 +41,7 @@ public class database {
 		return (state);
 	}
 	
-	public  DefaultListModel read()	{
+	public  DefaultListModel read(loading_window b)	{
 		
 		Statement state;
 		DefaultListModel dlmMods;
@@ -51,7 +52,8 @@ public class database {
 		sql = "select * from gameversion";
 		
 		try {
-			JL_loading.
+			b.JL_loading.setText("Chargement des mods...");
+			b.JPB_loading.setValue(100);
 			state = database();
 			res = state.executeQuery(sql);
 			
@@ -70,6 +72,8 @@ public class database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		b.JL_loading.setText("Terminé");
+		b.JPB_loading.setValue(100);
 		return dlmMods;
 	}
 }

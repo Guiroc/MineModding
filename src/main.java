@@ -9,7 +9,7 @@ public class main {
 		
 		loading_window b = new loading_window();
 		database req = new database();
-		DefaultListModel a = req.read();
+		DefaultListModel a = req.read(b);
 		b.dispose();
 		main_window a1 = new main_window(a);
 		

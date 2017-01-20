@@ -33,7 +33,7 @@ public class loading_window extends JWindow{
 		JPB_loading = new JProgressBar();
 		JPB_loading.setMaximum(100);
 		JPB_loading.setMinimum(0);
-		JPB_loading.setValue(50);
+		JPB_loading.setValue(0);
 		JPB_loading.setStringPainted(true);
 		JPB_loading.setBounds(5, 275, 490, 20);
 		JPB_loading.contains(50, 50);
