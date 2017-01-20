@@ -49,12 +49,6 @@ public class loading_window extends JWindow{
 		this.getContentPane().add(j);
 		this.setVisible(true);
 		
-//		try {
-//			Thread.sleep(2000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 //		this.dispose();
 //		main_window a = new main_window();
 		}

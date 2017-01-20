@@ -11,6 +11,12 @@ public class main {
 		
 		loading_window b = new loading_window();
 		database req = new database();
+//		try {
+//			Thread.sleep(0);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		List a = req.read(b);
 		b.dispose();
 		main_window a1 = new main_window(a);

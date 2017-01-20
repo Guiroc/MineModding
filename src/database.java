@@ -50,27 +50,35 @@ public class database {
 		ResultSet res;
 		
 		dlmMods = new ArrayList();
-		sql = "select * "
+		
+		try {
+			
+			sql = "select * "
 				+ "from gameversion"
 				+ " left join mod"
 				+ " on gameversion_id = mod_uneVersion"
 				+ " order by gameversion_label asc, mod_label";
 		
-		try {
 			b.JL_loading.setText("Chargement des mods...");
-			b.JPB_loading.setValue(100);
+			b.JPB_loading.setValue(0);
 			state = database();
 			res = state.executeQuery(sql);
+			int nbmax = res.getFetchSize();
+			b.JPB_loading.setMaximum(nbmax);
 				
 			while(res.next())	{
 				
+				b.JL_loading.setText("Chargement de " + res.getString("gameversion_label"));
 				gameversion gameversion = new gameversion(res.getInt("gameversion_id"), res.getString("gameversion_label"));
 				dlmMods.add(gameversion);
 				int old_gameversion = res.getInt("gameversion_id");
 				
 				while(res.wasNull() && res.getInt("gameversion_id") != old_gameversion){
+					
+					b.JL_loading.setText("Chargement de " + res.getString("mod_label"));
 					mod mod = new mod (res.getInt("mod_id"), res.getString("mod_label"), gameversion);
 					gameversion.addlesMods(mod);
+					b.JPB_loading.setValue(b.JPB_loading.getValue() + 1);
 				}
 			}
 			state.close();
