@@ -1,6 +1,8 @@
 package window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -23,15 +25,17 @@ public class modsprofilpanel extends JPanel {
 	  JCBgameversion = new JComboBox();
 	  JCBgameversion.setBounds(0, 0, 100, 20);
 	  
-	  JCBgameversion.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	Lmods = new JList (JCBgameversion.getSelectedObjects());
-		    }
+	  JCBgameversion.addItemListener (new ItemListener () {
+
+			public void itemStateChanged(ItemEvent arg0) {
+//				print(JCBgameversion.getSelectedItem());
+				
+			}
 		});
 	  
 	  
 	  dlmMods = new DefaultListModel();
-//	  Lmods = new JList<String>(dlmMods);
+	  Lmods = new JList<String>(dlmMods);
 	  Lmods.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 	  Lmods.setLayoutOrientation(JList.VERTICAL);
 	  Lmods.setVisibleRowCount(-1);
