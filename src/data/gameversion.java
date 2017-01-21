@@ -51,7 +51,7 @@ public class gameversion {
 
 	@Override
 	public String toString() {
-		return label;
+		return "gameversion [id=" + id + ", label=" + label + ", lesMods=" + lesMods + "]";
 	}
 
 }

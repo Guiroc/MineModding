@@ -31,7 +31,7 @@ public class database {
 			Class.forName("org.postgresql.Driver");
 			adress = "jdbc:postgresql://localhost:5432/test";
 			user = "postgres";
-			password = "pgadmin";
+			password = "azerty";
 		
 			conn = DriverManager.getConnection(adress, user, password);
 			state = conn.createStatement();
@@ -42,20 +42,20 @@ public class database {
 		return (state);
 	}
 	
-	public  List read(loading_window b)	{
+	public List<gameversion> read(loading_window b)	{
 		
 		Statement state;
-		List dlmMods;
+		List<gameversion> Lgameversion;
 		String sql;
 		ResultSet res;
 		
-		dlmMods = new ArrayList();
+		Lgameversion = new ArrayList<gameversion>();
 		
 		try {
 			
 			sql = "select * "
 				+ "from gameversion"
-				+ " left join mod"
+				+ " inner join mod"
 				+ " on gameversion_id = mod_uneVersion"
 				+ " order by gameversion_label asc, mod_label";
 		
@@ -65,29 +65,33 @@ public class database {
 			res = state.executeQuery(sql);
 			int nbmax = res.getFetchSize();
 			b.JPB_loading.setMaximum(nbmax);
-				
-			while(res.next())	{
+			res.next();
+			while(!res.wasNull())	{
 				
 				b.JL_loading.setText("Chargement de " + res.getString("gameversion_label"));
 				gameversion gameversion = new gameversion(res.getInt("gameversion_id"), res.getString("gameversion_label"));
-				dlmMods.add(gameversion);
+				Lgameversion.add(gameversion);
 				int old_gameversion = res.getInt("gameversion_id");
 				
-				while(res.wasNull() && res.getInt("gameversion_id") != old_gameversion){
+				do{
 					
 					b.JL_loading.setText("Chargement de " + res.getString("mod_label"));
 					mod mod = new mod (res.getInt("mod_id"), res.getString("mod_label"), gameversion);
 					gameversion.addlesMods(mod);
 					b.JPB_loading.setValue(b.JPB_loading.getValue() + 1);
-				}
+					
+				}while(res.next() && res.getInt("gameversion_id") == old_gameversion);
 			}
 			state.close();
+			state = null;
 			res.close();
+			res = null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		b.JL_loading.setText("Terminé");
 		b.JPB_loading.setValue(100);
-		return dlmMods;
+		
+		return Lgameversion;
 	}
 }

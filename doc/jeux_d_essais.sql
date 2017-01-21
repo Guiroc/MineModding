@@ -51,3 +51,10 @@ create table mod(
 );
 
 insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 8);
+insert into mod (mod_label, mod_uneVersion) values ('buildcraft', 8);
+insert into mod (mod_label, mod_uneVersion) values ('applied energistic', 8);
+insert into mod (mod_label, mod_uneVersion) values ('agricraft', 8);
+insert into mod (mod_label, mod_uneVersion) values ('logistic pipes', 8);
+insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 9);
+insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 11);
+insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 2);
