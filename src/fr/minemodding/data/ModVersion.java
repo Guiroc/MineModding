@@ -1,18 +1,18 @@
-package data;
+package fr.minemodding.data;
 
-public class modversion {
+public class ModVersion {
 	
 	private Integer id;
 	private String label;
-	private mod unMod;
+	private Mod unMod;
 	
-	public modversion() {
+	public ModVersion() {
 		this.id = null;
 		this.label = null;
 		this.unMod = null;
 	}
 	
-	public modversion(Integer id, String label, mod unMod) {
+	public ModVersion(Integer id, String label, Mod unMod) {
 		this.id = id;
 		this.label = label;
 		this.unMod = unMod;
@@ -34,11 +34,11 @@ public class modversion {
 		this.label = label;
 	}
 
-	public mod getUnMod() {
+	public Mod getUnMod() {
 		return unMod;
 	}
 
-	public void setUnMod(mod unMod) {
+	public void setUnMod(Mod unMod) {
 		this.unMod = unMod;
 	}
 		

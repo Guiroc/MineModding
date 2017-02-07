@@ -1,23 +1,23 @@
-package data;
+package fr.minemodding.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class mod {
+public class Mod {
 	
 	private Integer id;
 	private String label;
-	private List<modversion> lesModVersion;
-	private gameversion uneVersion;
+	private List<ModVersion> lesModVersion;
+	private GameVersion uneVersion;
 	
-	public mod(int id, String label, gameversion uneVersion) {
+	public Mod(int id, String label, GameVersion uneVersion) {
 		this.id = id;
 		this.label = label;
-		this.lesModVersion = new ArrayList<modversion>();
+		this.lesModVersion = new ArrayList<ModVersion>();
 		this.uneVersion = uneVersion;
 	}
 	
-	public mod(int id, String label, List<modversion> lesmodVersion, gameversion uneVersion) {
+	public Mod(int id, String label, List<ModVersion> lesmodVersion, GameVersion uneVersion) {
 		super();
 		this.id = id;
 		this.label = label;
@@ -41,19 +41,19 @@ public class mod {
 		this.label = label;
 	}
 
-	public List<modversion> getLesModVersion() {
+	public List<ModVersion> getLesModVersion() {
 		return lesModVersion;
 	}
 
-	public void setLesModVersion(List<modversion> lesModVersion) {
+	public void setLesModVersion(List<ModVersion> lesModVersion) {
 		this.lesModVersion = lesModVersion;
 	}
 
-	public gameversion getUneVersion() {
+	public GameVersion getUneVersion() {
 		return uneVersion;
 	}
 
-	public void setUneVersion(gameversion uneVersion) {
+	public void setUneVersion(GameVersion uneVersion) {
 		this.uneVersion = uneVersion;
 	}
 	

@@ -1,25 +1,25 @@
-package data;
+package fr.minemodding.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class modspackversion {
+public class ModsPackVersion {
 	
 	private Integer id;
 	private String label;
-	private modspack unModspackversion;
-	private gameversion uneVersion;
-	private List<mod> lesMods;
+	private ModsPack unModspackversion;
+	private GameVersion uneVersion;
+	private List<Mod> lesMods;
 	
-	public modspackversion() {
+	public ModsPackVersion() {
 		this.id = null;
 		this.label = null;
 		this.unModspackversion = null;
 		this.uneVersion = null;
-		this.lesMods = new ArrayList<mod>();
+		this.lesMods = new ArrayList<Mod>();
 	}
 	
-	public modspackversion(Integer id, String label, modspack unModspackversion, gameversion uneVersion, List<mod> lesMods) {
+	public ModsPackVersion(Integer id, String label, ModsPack unModspackversion, GameVersion uneVersion, List<Mod> lesMods) {
 		this.id = id;
 		this.label = label;
 		this.unModspackversion = unModspackversion;
@@ -43,27 +43,27 @@ public class modspackversion {
 		this.label = label;
 	}
 
-	public modspack getunModspackversion() {
+	public ModsPack getunModspackversion() {
 		return unModspackversion;
 	}
 
-	public void setunModspackversion(modspack unModspackversion) {
+	public void setunModspackversion(ModsPack unModspackversion) {
 		this.unModspackversion = unModspackversion;
 	}
 
-	public List<mod> getLesMods() {
+	public List<Mod> getLesMods() {
 		return lesMods;
 	}
 
-	public void setLesMods(List<mod> lesMods) {
+	public void setLesMods(List<Mod> lesMods) {
 		this.lesMods = lesMods;
 	}
 
-	public gameversion getUneVersion() {
+	public GameVersion getUneVersion() {
 		return uneVersion;
 	}
 
-	public void setUneVersion(gameversion uneVersion) {
+	public void setUneVersion(GameVersion uneVersion) {
 		this.uneVersion = uneVersion;
 	}
 	
