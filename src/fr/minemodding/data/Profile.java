@@ -5,74 +5,77 @@ import java.util.List;
 
 public class Profile {
 
-	private Integer id;
-	private String label;
-	private List<Mod> lesMods;
-	private GameVersion uneVersion;
-	private ModsPackVersion unModspackversion;
+	private String name;
+	private String gameDir;
+	private String lastVersionId;
+	private String javaDir;
+	private String javaArgs;
+	private List<Mod> mods;
+	private ModsPackVersion modsPackVersion;
 	
-	public Profile() {
-		this.id = null;
-		this.label = null;
-		this.lesMods = new ArrayList<Mod>();
-		this.uneVersion = null;
-		this.unModspackversion = null;
-	}
-	
-	public Profile(int id, String label, List<Mod> lesMods, GameVersion uneVersion) {
-		this.id = id;
-		this.label = label;
-		this.lesMods = lesMods;
-		this.uneVersion = uneVersion;
-		this.unModspackversion = null;
-	}
-	
-	public Profile(int id, String label, List<Mod> lesMods, GameVersion uneVersion, ModsPackVersion unModspackversion) {
-		this.id = id;
-		this.label = label;
-		this.lesMods = lesMods;
-		this.uneVersion = uneVersion;
-		this.unModspackversion = unModspackversion;
+	public Profile(String name, String gameDir, String lastVersionId, String javaDir, String javaArgs) {
+		this.name = name;
+		this.gameDir = gameDir;
+		this.lastVersionId = lastVersionId;
+		this.javaDir = javaDir;
+		this.javaArgs = javaArgs;
+		this.mods = new ArrayList<Mod>();
+		this.modsPackVersion = null;
 	}
 
-	public int getId() {
-		return id;
+	public String getName() {
+		return name;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getGameDir() {
+		return gameDir;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
+	public void setGameDir(String gameDir) {
+		this.gameDir = gameDir;
 	}
 
-	public List<Mod> getLesMods() {
-		return lesMods;
+	public String getLastVersionId() {
+		return lastVersionId;
 	}
 
-	public void setLesMods(List<Mod> lesMods) {
-		this.lesMods = lesMods;
+	public void setLastVersionId(String lastVersionId) {
+		this.lastVersionId = lastVersionId;
 	}
 
-	public GameVersion getUneVersion() {
-		return uneVersion;
+	public String getJavaDir() {
+		return javaDir;
 	}
 
-	public void setUneVersion(GameVersion uneVersion) {
-		this.uneVersion = uneVersion;
+	public void setJavaDir(String javaDir) {
+		this.javaDir = javaDir;
 	}
 
-	public ModsPackVersion getunModspackversion() {
-		return unModspackversion;
+	public String getJavaArgs() {
+		return javaArgs;
 	}
 
-	public void setunModspackversion(ModsPackVersion unModspackversion) {
-		this.unModspackversion = unModspackversion;
+	public void setJavaArgs(String javaArgs) {
+		this.javaArgs = javaArgs;
 	}
 
+	public List<Mod> getMods() {
+		return mods;
+	}
+
+	public void setMods(Mod mods) {
+		this.mods.add(mods);
+	}
+
+	public ModsPackVersion getModsPackVersion() {
+		return modsPackVersion;
+	}
+
+	public void setModsPackVersion(ModsPackVersion modsPackVersion) {
+		this.modsPackVersion = modsPackVersion;
+	}
 }

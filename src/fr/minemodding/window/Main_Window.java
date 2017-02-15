@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import fr.minemodding.data.GameVersion;
+import fr.minemodding.data.Profile;
 
 public class Main_Window extends JFrame {
 	
@@ -14,12 +15,12 @@ public class Main_Window extends JFrame {
 	public JTabbedPane jtp;
 	public ModsProfilPanel profil;
 		
-	public Main_Window(List<GameVersion> a) {
+	public Main_Window(List<GameVersion> a, List<Profile> b) {
 		
 		
 		
 		jtp = new JTabbedPane();
-		profil = new ModsProfilPanel(a);
+		profil = new ModsProfilPanel(a, b);
 		
 	    jtp.addTab("Accueil", new AccueilPanel());
 	    jtp.addTab("Mods et Profil", profil);
