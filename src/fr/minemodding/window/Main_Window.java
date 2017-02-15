@@ -13,18 +13,23 @@ public class Main_Window extends JFrame {
 	private static final long serialVersionUID = 05022017;
 	
 	public JTabbedPane jtp;
-	public ModsProfilPanel profil;
+	public ModsProfilPanel modsProfilPanel;
+	public AccueilPanel accueilPanel;
+	public ModsPackPanel modsPackPanel;
 		
 	public Main_Window(List<GameVersion> a, List<Profile> b) {
 		
 		
 		
 		jtp = new JTabbedPane();
-		profil = new ModsProfilPanel(a, b);
+		accueilPanel = new AccueilPanel();
+		modsProfilPanel = new ModsProfilPanel(a, b);
+		modsPackPanel = new ModsPackPanel();
 		
-	    jtp.addTab("Accueil", new AccueilPanel());
-	    jtp.addTab("Mods et Profil", profil);
-	    jtp.addTab("ModsPack", new ModsPackPanel());
+		
+	    jtp.addTab("Accueil", accueilPanel);
+	    jtp.addTab("Mods et Profil", modsProfilPanel);
+	    jtp.addTab("ModsPack", modsPackPanel);
 	    
 		this.setVisible(true);
 		this.setTitle("MineModding");
@@ -35,23 +40,4 @@ public class Main_Window extends JFrame {
 		this.add(jtp);
 	}
 }
-class AccueilPanel extends JPanel {
 
-	private static final long serialVersionUID = 05022017;
-
-public AccueilPanel() {
-
-    
-  }
-}
-
-class ModsPackPanel extends JPanel {
-
-	private static final long serialVersionUID = 05022017;
-
-public ModsPackPanel() {
-
-    
-  }
-  
-}
