@@ -2,7 +2,6 @@ package fr.minemodding.window;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import fr.minemodding.data.GameVersion;

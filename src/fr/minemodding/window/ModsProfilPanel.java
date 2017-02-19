@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +14,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.Border;
 
 import fr.minemodding.data.GameVersion;
 import fr.minemodding.data.Mod;
@@ -38,24 +40,19 @@ public class ModsProfilPanel extends JPanel {
 	GameVersion laselection;
 //	-------------------------------------------------------------------------------------------------------------------------
 	public ModsProfilPanel(List<GameVersion> b, List<Profile> c) {
-	
-		JLgameversion = new JLabel();
-		JLgameversion.setBounds(5, 5, 100, 20);
-		JLgameversion.setAlignmentX(CENTER_ALIGNMENT);
-		JLgameversion.setText("Version de Minecraft");
 		
-		JLmods = new JLabel();
-		JLmods.setBounds(110, 5, 150, 20);
-		JLmods.setAlignmentX(CENTER_ALIGNMENT);
-		JLmods.setText("Mods disponible");
-		  
-		JLmodsselected = new JLabel();
-		JLmodsselected.setBounds(315, 5, 150, 20);
-		JLmodsselected.setAlignmentX(CENTER_ALIGNMENT);
-		JLmodsselected.setText("Mods selectionnés");
-			  
+		this.setLayout(null);
+		
+//		jpanel profilVersion---------------------------------------------
+		Border border1 =BorderFactory.createTitledBorder("Profil et version");
+		JPanel profilVersion = new JPanel();
+		profilVersion.setBorder(border1);
+		profilVersion.setBounds(0, 0, 120, 70);
+		profilVersion.setLayout(null);
+		this.add(profilVersion);
+		
 		JCBgameversion = new JComboBox<GameVersion>();
-		JCBgameversion.setBounds(5, 30, 100, 20);
+		JCBgameversion.setBounds(10, 40, 100, 20);
 		JCBgameversion.setRenderer(new GameVersion_Renderer());
 		JCBgameversion.addItemListener (new ItemListener () {
 		
@@ -127,13 +124,44 @@ public class ModsProfilPanel extends JPanel {
 				}
 			}
 		});
+		profilVersion.add(JCBgameversion);
 		
 		JCBprofile = new JComboBox<Profile>();
-		JCBprofile.setBounds(5, 55, 100, 20);
+		JCBprofile.setBounds(10, 15, 100, 20);
 		JCBprofile.setRenderer(new Profile_Renderer());
 		for (Profile unprofile: c){
 			JCBprofile.addItem(unprofile);
 		}
+		profilVersion.add(JCBprofile);
+//		jpanel profilVersion---------------------------------------------
+		
+		
+//		jpanel parametre------------------------------------------------
+		border1 = BorderFactory.createTitledBorder("Paramètre");
+		JPanel parametre = new JPanel();
+		parametre.setLayout(null);
+		parametre.setBorder(border1);
+		parametre.setBounds(0, 75, 200, 65);
+		this.add(parametre);
+//		jpanel parametre------------------------------------------------
+		
+//		jpanel modding-------------------------------------------------
+		border1 = BorderFactory.createTitledBorder("Modding");
+		JPanel modding = new JPanel();
+		modding.setLayout(null);
+		modding.setBorder(border1);
+		modding.setBounds(205, 0, 400, 400);
+		this.add(modding);
+		
+		JLmods = new JLabel();
+		JLmods.setBounds(110, 5, 150, 20);
+		JLmods.setAlignmentX(CENTER_ALIGNMENT);
+		JLmods.setText("Mods disponible");
+		  
+		JLmodsselected = new JLabel();
+		JLmodsselected.setBounds(315, 5, 150, 20);
+		JLmodsselected.setAlignmentX(CENTER_ALIGNMENT);
+		JLmodsselected.setText("Mods selectionnés");
 		
 		DLMmods = new DefaultListModel<Mod>();
 		Lmods = new JList<Mod>(DLMmods);
@@ -229,18 +257,10 @@ public class ModsProfilPanel extends JPanel {
 			  
 		JSPmodsselected = new JScrollPane(Lmodsselected);
 		JSPmodsselected.setBounds(315, 30, 150, 300);
-			  
+//		jpanel modding-------------------------------------------------
+		
 		this.addLGameVersion(b);
-		this.setLayout(null);
-		this.add(JLgameversion);
-		this.add(JLmods);
-		this.add(JLmodsselected);
-		this.add(JSPmodsselected);
-		this.add(JSPmods);
-		this.add(JCBgameversion);
-		this.add(JBselect_mod);
-		this.add(JBdeselect_mod);
-		this.add(JCBprofile);
+		
 	}
 //	-------------------------------------------------------------------------------------------------------------------------
 	public void addLGameVersion(List<GameVersion> desgameversion){
