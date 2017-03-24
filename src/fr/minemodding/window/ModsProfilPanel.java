@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
@@ -57,7 +58,7 @@ public class ModsProfilPanel extends JPanel {
 		JCBgameversion.addItemListener (new ItemListener () {
 		
 			public void itemStateChanged(ItemEvent arg0) {
-						  
+						   
 				if(arg0.getStateChange() == ItemEvent.DESELECTED){
 					if(laselection != JCBgameversion.getSelectedItem()){
 						if (!DLMmodsselected.isEmpty()){
@@ -141,8 +142,20 @@ public class ModsProfilPanel extends JPanel {
 		JPanel parametre = new JPanel();
 		parametre.setLayout(null);
 		parametre.setBorder(border1);
-		parametre.setBounds(0, 75, 200, 65);
+		parametre.setBounds(0, 75, 200, 150);
 		this.add(parametre);
+		
+		JTextField JTFgamedir = new JTextField();
+		JTFgamedir.setBounds(10, 15, 100, 20);
+		parametre.add(JTFgamedir);
+		
+		JTextField JTFjavadirs = new JTextField();
+		JTFjavadirs.setBounds(10, 40, 100, 20);
+		parametre.add(JTFjavadirs);
+		
+		JTextField JTFjavaargs = new JTextField();
+		JTFjavaargs.setBounds(10, 65, 100, 20);
+		parametre.add(JTFjavaargs);
 //		jpanel parametre------------------------------------------------
 		
 //		jpanel modding-------------------------------------------------
@@ -150,18 +163,20 @@ public class ModsProfilPanel extends JPanel {
 		JPanel modding = new JPanel();
 		modding.setLayout(null);
 		modding.setBorder(border1);
-		modding.setBounds(205, 0, 400, 400);
+		modding.setBounds(205, 0, 600, 400);
 		this.add(modding);
 		
 		JLmods = new JLabel();
-		JLmods.setBounds(110, 5, 150, 20);
+		JLmods.setBounds(10, 15, 150, 20);
 		JLmods.setAlignmentX(CENTER_ALIGNMENT);
 		JLmods.setText("Mods disponible");
+		modding.add(JLmods);
 		  
 		JLmodsselected = new JLabel();
-		JLmodsselected.setBounds(315, 5, 150, 20);
+		JLmodsselected.setBounds(215, 15, 150, 20);
 		JLmodsselected.setAlignmentX(CENTER_ALIGNMENT);
 		JLmodsselected.setText("Mods selectionnés");
+		modding.add(JLmodsselected);
 		
 		DLMmods = new DefaultListModel<Mod>();
 		Lmods = new JList<Mod>(DLMmods);
@@ -170,9 +185,11 @@ public class ModsProfilPanel extends JPanel {
 		Lmods.setLayoutOrientation(JList.VERTICAL);
 		Lmods.setVisibleRowCount(-1);
 		JSPmods = new JScrollPane(Lmods);
-		JSPmods.setBounds(110, 30, 150, 300);
+		JSPmods.setBounds(10, 40, 150, 300);
+		modding.add(JSPmods);
+		
 		JBselect_mod = new JButton();
-		JBselect_mod.setBounds(260, 185, 50, 20);
+		JBselect_mod.setBounds(165, 185, 50, 20);
 		JBselect_mod.setText(">>");
 		JBselect_mod.addMouseListener(new MouseListener(){
 		
@@ -208,8 +225,10 @@ public class ModsProfilPanel extends JPanel {
 			public void mouseReleased(MouseEvent arg0) {
 			}	  
 		});
+		modding.add(JBselect_mod);
+		
 		JBdeselect_mod = new JButton();
-		JBdeselect_mod.setBounds(260, 155, 50, 20);
+		JBdeselect_mod.setBounds(165, 155, 50, 20);
 		JBdeselect_mod.setText("<<");
 		JBdeselect_mod.addMouseListener(new MouseListener(){
 			
@@ -247,6 +266,7 @@ public class ModsProfilPanel extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 			}
 		});
+		modding.add(JBdeselect_mod);
 			  
 		DLMmodsselected = new DefaultListModel<Mod>();
 		Lmodsselected = new JList<Mod>(DLMmodsselected);
@@ -256,10 +276,16 @@ public class ModsProfilPanel extends JPanel {
 		Lmodsselected.setVisibleRowCount(-1);
 			  
 		JSPmodsselected = new JScrollPane(Lmodsselected);
-		JSPmodsselected.setBounds(315, 30, 150, 300);
-//		jpanel modding-------------------------------------------------
+		JSPmodsselected.setBounds(220, 40, 150, 300);
+		modding.add(JSPmodsselected);
 		
-		this.addLGameVersion(b);
+//		jpanel modding-------------------------------------------------
+		try{
+			this.addLGameVersion(b);
+		}catch(Exception e){
+			
+		}
+		
 		
 	}
 //	-------------------------------------------------------------------------------------------------------------------------
