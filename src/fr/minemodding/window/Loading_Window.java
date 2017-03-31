@@ -107,11 +107,7 @@ public class Loading_Window extends JWindow{
 		}
 		JL_loading.setText("Terminé");
 		JPB_loading.setValue(100);
-		try{
-			this.chargementProfile();
-		}catch(Exception e){
-			
-		}
+		this.chargementProfile();
 		new Main_Window(Lgameversion, Lprofile);
 		this.dispose();
 	}

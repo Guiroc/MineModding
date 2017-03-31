@@ -28,17 +28,18 @@ public class ModsProfilPanel extends JPanel {
 	JLabel JLgameversion;
 	JLabel JLmods;
 	JLabel JLmodsselected; 
-	DefaultListModel<Mod> DLMmods;
-	DefaultListModel<Mod> DLMmodsselected; 
+	static DefaultListModel<Mod> DLMmods;
+	static DefaultListModel<Mod> DLMmodsselected; 
 	JScrollPane JSPmods;
 	JScrollPane JSPmodsselected; 
 	JList<Mod> Lmods;
 	JList<Mod> Lmodsselected; 
-	JComboBox<GameVersion> JCBgameversion;
+	static JComboBox<GameVersion> JCBgameversion;
 	JComboBox<Profile> JCBprofile;
 	JButton JBselect_mod;
 	JButton JBdeselect_mod; 
-	GameVersion laselection;
+	static GameVersion laselection;
+	Window_Alert ww;
 //	-------------------------------------------------------------------------------------------------------------------------
 	public ModsProfilPanel(List<GameVersion> b, List<Profile> c) {
 		
@@ -62,54 +63,9 @@ public class ModsProfilPanel extends JPanel {
 				if(arg0.getStateChange() == ItemEvent.DESELECTED){
 					if(laselection != JCBgameversion.getSelectedItem()){
 						if (!DLMmodsselected.isEmpty()){
-							GameVersion_Changed ww = new GameVersion_Changed();
-							ww.JB_accepte.addMouseListener(new MouseListener(){
-								
-								public void mouseClicked(MouseEvent arg0) {
-									
-									List<Mod> listmod;
-									
-									DLMmods.removeAllElements();
-									DLMmodsselected.removeAllElements();
-									laselection = (GameVersion) JCBgameversion.getSelectedItem();
-									listmod = laselection.getLesMods();
-									for (Mod unmod: listmod){
-										DLMmods.addElement(unmod);
-									}
-									ww.dispose();
-								}
-								
-								public void mouseEntered(MouseEvent e) {
-								}
-								
-								public void mouseExited(MouseEvent e) {
-								}
-								
-								public void mousePressed(MouseEvent e) {
-								}
-								
-								public void mouseReleased(MouseEvent e) {
-								}
-							});
-							ww.JB_annule.addMouseListener(new MouseListener(){
+							ww = new Window_Alert();
+							ww.gameVersion_Changed();
 							
-								public void mouseClicked(MouseEvent e) {
-									JCBgameversion.setSelectedItem(laselection);
-									ww.dispose();
-								}
-							
-								public void mouseEntered(MouseEvent e) {
-								}
-							
-								public void mouseExited(MouseEvent e) {
-								}
-							
-								public void mousePressed(MouseEvent e) {
-								}
-							
-								public void mouseReleased(MouseEvent e) {
-								}
-							});
 						}
 						else{
 							List<Mod> listmod;
@@ -302,5 +258,9 @@ public class ModsProfilPanel extends JPanel {
 		for (Mod unmod: listmod){
 			DLMmods.addElement(unmod);
 		}
+	}
+	
+	public DefaultListModel<Mod> getDLMmods(){
+		return DLMmods;
 	}
 }
