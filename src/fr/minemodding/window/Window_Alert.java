@@ -6,9 +6,7 @@ import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,14 +18,10 @@ public class Window_Alert extends JDialog{
 	private static final long serialVersionUID = 05022017;
 	
 	JPanel JP_default;
-	public JLabel JL_texte;
+	JLabel JL_texte;
 	JButton JB_annule;
 	JButton JB_accepte;
 	JButton JB_maj;
-	static DefaultListModel<Mod> DLMmods;
-	static DefaultListModel<Mod> DLMmodsselected;
-	static JComboBox<GameVersion> JCBgameversion;
-	static GameVersion laselection;
 	
 	public Window_Alert(){
 		this.getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
@@ -35,7 +29,6 @@ public class Window_Alert extends JDialog{
 		this.setLocationRelativeTo(null);
 		this.setUndecorated(true);
 		this.setAlwaysOnTop(true);
-		this.setVisible(true);
 		this.setModal(true);
 	}
 	public void gameVersion_Changed(){
@@ -50,7 +43,8 @@ public class Window_Alert extends JDialog{
 		JB_annule.addMouseListener(new MouseListener(){
 			
 			public void mouseClicked(MouseEvent e) {
-				JCBgameversion.setSelectedItem(laselection);
+				ModsProfilPanel.JCBgameversion.setSelectedItem(ModsProfilPanel.laselection);
+				setModal(false);
 				dispose();
 			}
 		
@@ -79,13 +73,14 @@ public class Window_Alert extends JDialog{
 			public void mouseClicked(MouseEvent arg0) {
 				
 				List<Mod> listmod;
-				DLMmods.removeAllElements();
-				DLMmodsselected.removeAllElements();
-				laselection = (GameVersion) JCBgameversion.getSelectedItem();
-				listmod = laselection.getLesMods();
+				ModsProfilPanel.DLMmods.removeAllElements();
+				ModsProfilPanel.DLMmodsselected.removeAllElements();
+				ModsProfilPanel.laselection = (GameVersion) ModsProfilPanel.JCBgameversion.getSelectedItem();
+				listmod = ModsProfilPanel.laselection.getLesMods();
 				for (Mod unmod: listmod){
-					DLMmods.addElement(unmod);
+					ModsProfilPanel.DLMmods.addElement(unmod);
 				}
+				
 				dispose();
 			}
 			
@@ -109,7 +104,9 @@ public class Window_Alert extends JDialog{
 		JP_default.add(JB_maj);
 		
 		this.getContentPane().add(JP_default);
+		this.setVisible(true);
 	}
+	
 	public void error_DataBase(){
 		
 		JL_texte = new JLabel();
@@ -192,6 +189,10 @@ public class Window_Alert extends JDialog{
 		JP_default.add(JB_accepte);
 		
 		this.getContentPane().add(JP_default);
+		this.setVisible(true);
 	}
 	
+	public void setTexte_JL_texte(String texte){
+		this.JL_texte.setText(texte);
+	}
 }

@@ -25,20 +25,21 @@ public class ModsProfilPanel extends JPanel {
 	
 	private static final long serialVersionUID = 05022017;
 	
+	static JComboBox<GameVersion> JCBgameversion;
+	static GameVersion laselection;
+	static DefaultListModel<Mod> DLMmods;
+	static DefaultListModel<Mod> DLMmodsselected;
+	
 	JLabel JLgameversion;
 	JLabel JLmods;
-	JLabel JLmodsselected; 
-	static DefaultListModel<Mod> DLMmods;
-	static DefaultListModel<Mod> DLMmodsselected; 
+	JLabel JLmodsselected;  
 	JScrollPane JSPmods;
 	JScrollPane JSPmodsselected; 
 	JList<Mod> Lmods;
 	JList<Mod> Lmodsselected; 
-	static JComboBox<GameVersion> JCBgameversion;
 	JComboBox<Profile> JCBprofile;
 	JButton JBselect_mod;
-	JButton JBdeselect_mod; 
-	static GameVersion laselection;
+	JButton JBdeselect_mod;
 	Window_Alert ww;
 //	-------------------------------------------------------------------------------------------------------------------------
 	public ModsProfilPanel(List<GameVersion> b, List<Profile> c) {

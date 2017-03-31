@@ -48,10 +48,10 @@ public class Database {
 		try {
 			
 			sql = "select * "
-				+ "from gameversion"
-				+ " inner join mod"
-				+ " on gameversion_id = mod_uneVersion"
-				+ " order by gameversion_label asc, mod_label";
+				+ "from gameversion "
+				+ "inner join mod "
+				+ "on gameversion_id = mod_uneVersion "
+				+ "order by gameversion_label asc, mod_label";
 		
 			state = database();
 			state.executeQuery(sql);
@@ -61,7 +61,7 @@ public class Database {
 			e.printStackTrace();
 			Alert = new Window_Alert();
 			Alert.error_DataBase();
-			Alert.JL_texte.setText("Erreur, nous n'avons pas pu trouver la base de donnée.");
+			Alert.setTexte_JL_texte("Erreur, nous n'avons pas pu trouver la base de donnée.");
 		}
 		return res1;
 	}
