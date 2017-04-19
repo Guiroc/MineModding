@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import fr.minemodding.window.Window_Alert;
+
 
 public class Database {
 	
@@ -22,7 +24,7 @@ public class Database {
 			Class.forName("org.postgresql.Driver");
 			adress = "jdbc:postgresql://localhost:5432/test";
 			user = "postgres";
-			password = "azerty";
+			password = "pgadmin";
 		
 			conn = DriverManager.getConnection(adress, user, password);
 			state = conn.createStatement();
@@ -38,6 +40,7 @@ public class Database {
 		Statement state;
 		String sql;
 		ResultSet res1;
+		Window_Alert Alert; 
 		
 		res1 = null;
 		new ArrayList<GameVersion>();
@@ -45,10 +48,10 @@ public class Database {
 		try {
 			
 			sql = "select * "
-				+ "from gameversion"
-				+ " inner join mod"
-				+ " on gameversion_id = mod_uneVersion"
-				+ " order by gameversion_label asc, mod_label";
+				+ "from gameversion "
+				+ "inner join mod "
+				+ "on gameversion_id = mod_uneVersion "
+				+ "order by gameversion_label asc, mod_label";
 		
 			state = database();
 			state.executeQuery(sql);
@@ -56,6 +59,9 @@ public class Database {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			Alert = new Window_Alert();
+			Alert.error_DataBase();
+			Alert.setTexte_JL_texte("Erreur, nous n'avons pas pu trouver la base de donnée.");
 		}
 		return res1;
 	}

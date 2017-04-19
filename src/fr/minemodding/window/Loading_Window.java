@@ -1,5 +1,6 @@
 package fr.minemodding.window;
 import java.awt.Font;
+import java.io.File;
 import java.io.FileReader;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -117,6 +118,12 @@ public class Loading_Window extends JWindow{
 		JSONParser parser = new JSONParser();
 		Lprofile = new ArrayList<Profile>();
 		try{
+			File file = new File(System.getenv("APPDATA") + "\\.minecraft\\launcher_profiles.json");
+			if(!file.exists()){
+				File dir = new File(System.getenv("APPDATA") + "\\.minecraft");
+				dir.mkdirs();
+				file.createNewFile();
+			}
 			Object obj = parser.parse(new FileReader( System.getenv("APPDATA") + "\\.minecraft\\launcher_profiles.json"));
 			JSONObject a = (JSONObject) obj;
 			b = (JSONObject) a.get("profiles");
