@@ -48,10 +48,7 @@ public class Database {
 		try {
 			
 			sql = "select * "
-				+ "from gameversion "
-				+ "inner join mod "
-				+ "on gameversion_id = mod_uneVersion "
-				+ "order by gameversion_label asc, mod_label";
+				+ "from SoftwareCheckUpdates";
 		
 			state = database();
 			state.executeQuery(sql);
