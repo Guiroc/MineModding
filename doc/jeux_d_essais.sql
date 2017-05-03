@@ -68,6 +68,23 @@ insert into mod (mod_label, mod_uneVersion) values ('RFTools', 8);
 insert into mod (mod_label, mod_uneVersion) values ('Baubles', 8);
 insert into mod (mod_label, mod_uneVersion) values ('Inventory Tweaks', 8);
 insert into mod (mod_label, mod_uneVersion) values ('Morpheus', 8);
+insert into mod (mod_label, mod_uneVersion) values ('RFTools', 11);
+insert into mod (mod_label, mod_uneVersion) values ('Baubles', 11);
+insert into mod (mod_label, mod_uneVersion) values ('Inventory Tweaks', 11);
+insert into mod (mod_label, mod_uneVersion) values ('Morpheus', 11);
 insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 9);
 insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 11);
 insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 2);
+
+create view SoftwareCheckUpdates
+as select *
+from gameversion
+inner join mod
+on gameversion_id = mod_uneVersion
+order by gameversion_label asc, mod_label;
+
+create table typemodversion(
+typemodversion_id int,
+typemodversion_libelle varchar(50),
+
+constraint pk_typemodversion primary key (typemodversion_id));
