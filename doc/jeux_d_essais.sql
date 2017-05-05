@@ -76,6 +76,24 @@ insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 9);
 insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 11);
 insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 2);
 
+create table modversion(
+	modversion_id serial,
+	modversion_label varchar(20) not null,
+	
+	modversion_unMod int,
+	
+	constraint pk_modversion primary key (modversion_id),
+	constraint fk_unMod foreign key (modversion_unMod) references mod (mod_id)
+);
+
+insert into modversion (modversion_label, modversion_unMod) values ('1.1.2', 1);
+insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 1);
+insert into modversion (modversion_label, modversion_unMod) values ('1.2.3', 1);
+insert into modversion (modversion_label, modversion_unMod) values ('1.2.7', 1);
+insert into modversion (modversion_label, modversion_unMod) values ('2.1.2', 1);
+insert into modversion (modversion_label, modversion_unMod) values ('2.9.8', 1);
+
+---------------------------------------------------------------
 create view SoftwareCheckUpdates
 as select *
 from gameversion

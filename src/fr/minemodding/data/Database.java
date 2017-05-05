@@ -57,8 +57,7 @@ public class Database {
 		} catch (Exception e) {
 			e.printStackTrace();
 			Alert = new Window_Alert();
-			Alert.error_DataBase();
-			Alert.setTexte_JL_texte("Erreur, nous n'avons pas pu trouver la base de donnée.");
+			Alert.error_DataBase();	
 		}
 		return res1;
 	}

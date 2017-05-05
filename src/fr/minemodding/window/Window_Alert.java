@@ -111,6 +111,7 @@ public class Window_Alert extends JDialog{
 		
 		JL_texte = new JLabel();
 		JL_texte.setBounds(5, 5, 490, 270);
+		JL_texte.setText("Erreur, nous n'avons pas pu trouver la base de donnée.");
 		
 		JB_annule = new JButton();
 		JB_annule.setBounds(5, 275, 140, 20);

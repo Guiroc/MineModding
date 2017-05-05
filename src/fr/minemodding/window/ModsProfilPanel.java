@@ -3,6 +3,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -17,8 +18,11 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 
+import fr.minemodding.core.LoadingDatabase;
+import fr.minemodding.core.LoadingProfile;
 import fr.minemodding.data.GameVersion;
 import fr.minemodding.data.Mod;
+import fr.minemodding.data.ModVersion;
 import fr.minemodding.data.Profile;
 
 public class ModsProfilPanel extends JPanel {
@@ -42,7 +46,7 @@ public class ModsProfilPanel extends JPanel {
 	JButton JBdeselect_mod;
 	Window_Alert ww;
 //	-------------------------------------------------------------------------------------------------------------------------
-	public ModsProfilPanel(List<GameVersion> b, List<Profile> c) {
+	public ModsProfilPanel() {
 		
 		this.setLayout(null);
 		
@@ -87,7 +91,7 @@ public class ModsProfilPanel extends JPanel {
 		JCBprofile = new JComboBox<Profile>();
 		JCBprofile.setBounds(10, 15, 100, 20);
 		JCBprofile.setRenderer(new Profile_Renderer());
-		for (Profile unprofile: c){
+		for (Profile unprofile: LoadingProfile.LesProfils){
 			JCBprofile.addItem(unprofile);
 		}
 		profilVersion.add(JCBprofile);
@@ -236,9 +240,18 @@ public class ModsProfilPanel extends JPanel {
 		JSPmodsselected.setBounds(220, 40, 150, 300);
 		modding.add(JSPmodsselected);
 		
+		DefaultListModel<ModVersion> DLMmodsVersions = new DefaultListModel<ModVersion>();
+		JList<ModVersion> LmodsVersions = new JList<ModVersion>(DLMmodsVersions);
+		LmodsVersions.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		LmodsVersions.setLayoutOrientation(JList.VERTICAL);
+		LmodsVersions.setVisibleRowCount(-1);
+		
+		JScrollPane JSPmodsVersions = new JScrollPane(LmodsVersions);
+		JSPmodsVersions.setBounds(390, 40, 150, 300);
+		modding.add(JSPmodsVersions);
 //		jpanel modding-------------------------------------------------
 		try{
-			this.addLGameVersion(b);
+			this.addLGameVersion(LoadingDatabase.lesGameVersion);
 		}catch(Exception e){
 			
 		}
@@ -246,7 +259,7 @@ public class ModsProfilPanel extends JPanel {
 		
 	}
 //	-------------------------------------------------------------------------------------------------------------------------
-	public void addLGameVersion(List<GameVersion> desgameversion){
+	public void addLGameVersion(ArrayList<GameVersion> desgameversion){
 	  
 		List<Mod> listmod;
 				
@@ -263,5 +276,9 @@ public class ModsProfilPanel extends JPanel {
 	
 	public DefaultListModel<Mod> getDLMmods(){
 		return DLMmods;
+	}
+	
+	public  JComboBox<Profile> getJCBprofile(){
+		return this.JCBprofile;
 	}
 }

@@ -16,13 +16,13 @@ public class Main_Window extends JFrame {
 	public AccueilPanel accueilPanel;
 	public ModsPackPanel modsPackPanel;
 		
-	public Main_Window(List<GameVersion> a, List<Profile> b) {
+	public Main_Window() {
 		
 		
 		
 		jtp = new JTabbedPane();
 		accueilPanel = new AccueilPanel();
-		modsProfilPanel = new ModsProfilPanel(a, b);
+		modsProfilPanel = new ModsProfilPanel();
 		modsPackPanel = new ModsPackPanel();
 		
 		

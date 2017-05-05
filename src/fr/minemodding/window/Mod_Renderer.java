@@ -1,12 +1,15 @@
 package fr.minemodding.window;
 
 import java.awt.Component;
+
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 import fr.minemodding.data.Mod;
+import fr.minemodding.data.ModVersion;
 
 	public class Mod_Renderer implements ListCellRenderer<Object> {
 			  
@@ -28,3 +31,6 @@ import fr.minemodding.data.Mod;
 			    return renderer;
 			  }
 			}
+
+	
+	

@@ -6,13 +6,10 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.swing.JOptionPane;
-
 public class File {
 	
 	public static void download(URL url) throws IOException {
 		HttpURLConnection uc;
-		String FileType;
 		InputStream in;
 		String FileName;
 		FileOutputStream WritenFile;
@@ -20,7 +17,6 @@ public class File {
 		int l;
 		
 		uc = (HttpURLConnection) url.openConnection();
-		FileType = uc.getContentType();
 		int FileLenght = uc.getContentLength();
 		if (FileLenght == -1) {
 			throw new IOException("Fichier non valide.");
