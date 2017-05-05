@@ -7,9 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import fr.minemodding.data.Mod;
+import fr.minemodding.data.ModVersion;
 
-	public class Mod_Renderer implements ListCellRenderer<Object> {
+	public class ModVersion_Renderer implements ListCellRenderer<Object> {
 			  
 //			  private final Dimension preferredSize = new Dimension(0, 20);
 			 
@@ -21,9 +21,9 @@ import fr.minemodding.data.Mod;
 				  defaultRenderer = new DefaultListCellRenderer();
 				  renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 			    
-				  if (value instanceof Mod) {
+				  if (value instanceof ModVersion) {
 			      
-					  renderer.setText(((Mod)value).getLabel());
+					  renderer.setText(((ModVersion)value).getLabel());
 				  }
 //			    renderer.setPreferredSize(preferredSize);
 			    return renderer;

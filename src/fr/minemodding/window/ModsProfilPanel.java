@@ -33,6 +33,7 @@ public class ModsProfilPanel extends JPanel {
 	static GameVersion laselection;
 	static DefaultListModel<Mod> DLMmods;
 	static DefaultListModel<Mod> DLMmodsselected;
+	static DefaultListModel<ModVersion> DLMmodsVersions;
 	
 	JLabel JLgameversion;
 	JLabel JLmods;
@@ -142,20 +143,62 @@ public class ModsProfilPanel extends JPanel {
 		DLMmods = new DefaultListModel<Mod>();
 		Lmods = new JList<Mod>(DLMmods);
 		Lmods.setCellRenderer(new Mod_Renderer());
-		Lmods.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		Lmods.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		Lmods.setLayoutOrientation(JList.VERTICAL);
 		Lmods.setVisibleRowCount(-1);
+		Lmods.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {		
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {	
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				DLMmodsVersions.removeAllElements();
+				Mod selection = Lmods.getSelectedValue();
+				if (selection != null){
+					for(ModVersion unModVersion : selection.getLesModVersion()){
+						DLMmodsVersions.addElement(unModVersion);
+					}
+				}
+			}
+			
+		});
+		
 		JSPmods = new JScrollPane(Lmods);
 		JSPmods.setBounds(10, 40, 150, 300);
 		modding.add(JSPmods);
 		
 		JBselect_mod = new JButton();
-		JBselect_mod.setBounds(165, 185, 50, 20);
+		JBselect_mod.setBounds(325, 185, 50, 20);
 		JBselect_mod.setText(">>");
 		JBselect_mod.addMouseListener(new MouseListener(){
 		
 			public void mouseClicked(MouseEvent arg0) {
-				
+			}
+			
+			public void mouseEntered(MouseEvent arg0) {
+			}
+			
+			public void mouseExited(MouseEvent arg0) {
+			}
+			
+			public void mousePressed(MouseEvent arg0) {
+			}
+			
+			public void mouseReleased(MouseEvent arg0) {
 				List<Mod> selection;
 				Integer nbmax2;
 				Integer i2;
@@ -172,29 +215,28 @@ public class ModsProfilPanel extends JPanel {
 						DLMmods.removeElement(uneselection);
 					}
 				}
-			}
-			
-			public void mouseEntered(MouseEvent arg0) {
-			}
-			
-			public void mouseExited(MouseEvent arg0) {
-			}
-			
-			public void mousePressed(MouseEvent arg0) {
-			}
-			
-			public void mouseReleased(MouseEvent arg0) {
 			}	  
 		});
 		modding.add(JBselect_mod);
 		
 		JBdeselect_mod = new JButton();
-		JBdeselect_mod.setBounds(165, 155, 50, 20);
+		JBdeselect_mod.setBounds(325, 155, 50, 20);
 		JBdeselect_mod.setText("<<");
 		JBdeselect_mod.addMouseListener(new MouseListener(){
 			
 			public void mouseClicked(MouseEvent e) {
-				
+			}
+			
+			public void mouseEntered(MouseEvent e) {
+			}
+			
+			public void mouseExited(MouseEvent e) {
+			}
+			
+			public void mousePressed(MouseEvent e) {
+			}
+			
+			public void mouseReleased(MouseEvent e) {
 				List<Mod> selection;
 				Integer nbmax;
 				Integer nbmax2;
@@ -214,18 +256,6 @@ public class ModsProfilPanel extends JPanel {
 					}
 				}
 			}
-			
-			public void mouseEntered(MouseEvent e) {
-			}
-			
-			public void mouseExited(MouseEvent e) {
-			}
-			
-			public void mousePressed(MouseEvent e) {
-			}
-			
-			public void mouseReleased(MouseEvent e) {
-			}
 		});
 		modding.add(JBdeselect_mod);
 			  
@@ -237,17 +267,18 @@ public class ModsProfilPanel extends JPanel {
 		Lmodsselected.setVisibleRowCount(-1);
 			  
 		JSPmodsselected = new JScrollPane(Lmodsselected);
-		JSPmodsselected.setBounds(220, 40, 150, 300);
+		JSPmodsselected.setBounds(390, 40, 150, 300);
 		modding.add(JSPmodsselected);
 		
-		DefaultListModel<ModVersion> DLMmodsVersions = new DefaultListModel<ModVersion>();
+		DLMmodsVersions = new DefaultListModel<ModVersion>();
 		JList<ModVersion> LmodsVersions = new JList<ModVersion>(DLMmodsVersions);
+		LmodsVersions.setCellRenderer(new ModVersion_Renderer());
 		LmodsVersions.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		LmodsVersions.setLayoutOrientation(JList.VERTICAL);
 		LmodsVersions.setVisibleRowCount(-1);
 		
 		JScrollPane JSPmodsVersions = new JScrollPane(LmodsVersions);
-		JSPmodsVersions.setBounds(390, 40, 150, 300);
+		JSPmodsVersions.setBounds(165, 40, 150, 300);
 		modding.add(JSPmodsVersions);
 //		jpanel modding-------------------------------------------------
 		try{

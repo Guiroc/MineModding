@@ -49,6 +49,10 @@ public class Mod {
 		this.lesModVersion = lesModVersion;
 	}
 
+	public void addUnModVersion(ModVersion unModVersion) {
+		this.lesModVersion.add(unModVersion);
+	}
+	
 	public GameVersion getUneVersion() {
 		return uneVersion;
 	}

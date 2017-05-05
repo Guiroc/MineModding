@@ -26,7 +26,7 @@ public class ModVersion {
 		this.id = id;
 	}
 
-	public String getlabel() {
+	public String getLabel() {
 		return label;
 	}
 
