@@ -1,6 +1,6 @@
 package fr.minemodding.data;
 
-public class ModVersion {
+public class ModVersion{
 	
 	private Integer id;
 	private String label;

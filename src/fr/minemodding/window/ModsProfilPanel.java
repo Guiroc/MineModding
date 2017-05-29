@@ -1,4 +1,8 @@
 package fr.minemodding.window;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
@@ -14,12 +18,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import fr.minemodding.core.LoadingDatabase;
-import fr.minemodding.core.LoadingProfile;
+import fr.minemodding.core.DownloadProfile;
+import fr.minemodding.core.FileProfile;
 import fr.minemodding.data.GameVersion;
 import fr.minemodding.data.Mod;
 import fr.minemodding.data.ModVersion;
@@ -32,35 +37,135 @@ public class ModsProfilPanel extends JPanel {
 	static JComboBox<GameVersion> JCBgameversion;
 	static GameVersion laselection;
 	static DefaultListModel<Mod> DLMmods;
-	static DefaultListModel<Mod> DLMmodsselected;
+	static DefaultListModel<ModVersion> DLMmodsselected;
 	static DefaultListModel<ModVersion> DLMmodsVersions;
+	public static JComboBox<Profile> JCBprofile;
 	
 	JLabel JLgameversion;
 	JLabel JLmods;
 	JLabel JLmodsselected;  
 	JScrollPane JSPmods;
-	JScrollPane JSPmodsselected; 
+	JScrollPane JSPmodsselected;
 	JList<Mod> Lmods;
-	JList<Mod> Lmodsselected; 
-	JComboBox<Profile> JCBprofile;
+	JList<ModVersion> Lmodsselected;
 	JButton JBselect_mod;
 	JButton JBdeselect_mod;
 	Window_Alert ww;
+	JList<ModVersion> LmodsVersions;
+	JButton JBnewProfile;
+	JButton JBeditProfile;
 //	-------------------------------------------------------------------------------------------------------------------------
 	public ModsProfilPanel() {
 		
 		this.setLayout(null);
 		
+//		jpanel profil---------------------------------------------
+		Border border1 =BorderFactory.createTitledBorder("Profil");
+		JPanel profil = new JPanel();
+		profil.setBorder(border1);
+		profil.setBounds(0, 0, 700, 50);
+		this.add(profil);
+		
+		JCBprofile = new JComboBox<Profile>();
+		JCBprofile.setPreferredSize(new Dimension(300, 20));
+		JCBprofile.setRenderer(new Profile_Renderer());
+		JCBprofile.addItemListener(new ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.DESELECTED){
+					ajoutGameVersionProfile();
+					updateJListJCombobox();
+				}
+			}
+			
+		});
+		
+		JBnewProfile = new JButton("Nouveau");
+		JBnewProfile.setPreferredSize(new Dimension(100, 20));
+		JBnewProfile.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				new Window_Profile("");
+			}
+			
+		});
+		
+		JBeditProfile = new JButton("Modifier");
+		JBeditProfile.setPreferredSize(new Dimension(100, 20));
+		JBeditProfile.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				new Window_Profile(((Profile) JCBprofile.getSelectedItem()).getName());
+			}
+			
+		});
+		
+		profil.add(JBnewProfile);
+		profil.add(JCBprofile);
+		profil.add(JBeditProfile);
+		
 //		jpanel profilVersion---------------------------------------------
-		Border border1 =BorderFactory.createTitledBorder("Profil et version");
-		JPanel profilVersion = new JPanel();
-		profilVersion.setBorder(border1);
-		profilVersion.setBounds(0, 0, 120, 70);
-		profilVersion.setLayout(null);
-		this.add(profilVersion);
+		
+//		jpanel version--------------------------------------------------
+		border1 =BorderFactory.createTitledBorder("Version du jeux");
+		JPanel JPversion = new JPanel();
+		JPversion.setBorder(border1);
+		JPversion.setBounds(700, 0, 400, 50);
+		this.add(JPversion);
 		
 		JCBgameversion = new JComboBox<GameVersion>();
-		JCBgameversion.setBounds(10, 40, 100, 20);
+		JCBgameversion.setPreferredSize(new Dimension(200, 20));
 		JCBgameversion.setRenderer(new GameVersion_Renderer());
 		JCBgameversion.addItemListener (new ItemListener () {
 		
@@ -68,16 +173,22 @@ public class ModsProfilPanel extends JPanel {
 						   
 				if(arg0.getStateChange() == ItemEvent.DESELECTED){
 					if(laselection != JCBgameversion.getSelectedItem()){
-						if (!DLMmodsselected.isEmpty()){
-							ww = new Window_Alert();
-							ww.gameVersion_Changed();
+						if (!((DefaultListModel<ModVersion>) DLMmodsselected).isEmpty()){
+//							ww = new Window_Alert();
+//							ww.gameVersion_Changed();
+							new Window_Alert().gameVersion_Changed();
 							
 						}
 						else{
 							List<Mod> listmod;
 							DLMmods.removeAllElements();
-							DLMmodsselected.removeAllElements();
+							((DefaultListModel<ModVersion>) DLMmodsselected).removeAllElements();
 							laselection = (GameVersion) JCBgameversion.getSelectedItem();
+							int i = 0;
+							while (i < FileProfile.lesProfils.size() && JCBprofile.getSelectedItem() != FileProfile.lesProfils.get(i)){
+								i++;
+							}
+							FileProfile.lesProfils.get(i).setUneGameVersion(laselection);
 							listmod = laselection.getLesMods();
 							for (Mod unmod: listmod){
 								DLMmods.addElement(unmod);
@@ -87,37 +198,32 @@ public class ModsProfilPanel extends JPanel {
 				}
 			}
 		});
-		profilVersion.add(JCBgameversion);
 		
-		JCBprofile = new JComboBox<Profile>();
-		JCBprofile.setBounds(10, 15, 100, 20);
-		JCBprofile.setRenderer(new Profile_Renderer());
-		for (Profile unprofile: LoadingProfile.LesProfils){
-			JCBprofile.addItem(unprofile);
-		}
-		profilVersion.add(JCBprofile);
-//		jpanel profilVersion---------------------------------------------
 		
+		JPversion.add(JCBgameversion);
+		addLGameVersion();
+		
+//		jpanel version--------------------------------------------------
 		
 //		jpanel parametre------------------------------------------------
-		border1 = BorderFactory.createTitledBorder("Paramètre");
-		JPanel parametre = new JPanel();
-		parametre.setLayout(null);
-		parametre.setBorder(border1);
-		parametre.setBounds(0, 75, 200, 150);
-		this.add(parametre);
-		
-		JTextField JTFgamedir = new JTextField();
-		JTFgamedir.setBounds(10, 15, 100, 20);
-		parametre.add(JTFgamedir);
-		
-		JTextField JTFjavadirs = new JTextField();
-		JTFjavadirs.setBounds(10, 40, 100, 20);
-		parametre.add(JTFjavadirs);
-		
-		JTextField JTFjavaargs = new JTextField();
-		JTFjavaargs.setBounds(10, 65, 100, 20);
-		parametre.add(JTFjavaargs);
+//		border1 = BorderFactory.createTitledBorder("Paramètre");
+//		JPanel parametre = new JPanel();
+//		parametre.setLayout(null);
+//		parametre.setBorder(border1);
+//		parametre.setBounds(0, 75, 200, 150);
+//		this.add(parametre);
+//		
+//		JTextField JTFgamedir = new JTextField();
+//		JTFgamedir.setBounds(10, 15, 100, 20);
+//		parametre.add(JTFgamedir);
+//		
+//		JTextField JTFjavadirs = new JTextField();
+//		JTFjavadirs.setBounds(10, 40, 100, 20);
+//		parametre.add(JTFjavadirs);
+//		
+//		JTextField JTFjavaargs = new JTextField();
+//		JTFjavaargs.setBounds(10, 65, 100, 20);
+//		parametre.add(JTFjavaargs);
 //		jpanel parametre------------------------------------------------
 		
 //		jpanel modding-------------------------------------------------
@@ -125,18 +231,18 @@ public class ModsProfilPanel extends JPanel {
 		JPanel modding = new JPanel();
 		modding.setLayout(null);
 		modding.setBorder(border1);
-		modding.setBounds(205, 0, 600, 400);
+		modding.setBounds(205, 50, 600, 400);
 		this.add(modding);
 		
 		JLmods = new JLabel();
-		JLmods.setBounds(10, 15, 150, 20);
-		JLmods.setAlignmentX(CENTER_ALIGNMENT);
+		JLmods.setBounds(10, 15, 300, 20);
+		JLmods.setHorizontalAlignment(SwingConstants.CENTER);
 		JLmods.setText("Mods disponible");
 		modding.add(JLmods);
 		  
 		JLmodsselected = new JLabel();
-		JLmodsselected.setBounds(215, 15, 150, 20);
-		JLmodsselected.setAlignmentX(CENTER_ALIGNMENT);
+		JLmodsselected.setBounds(390, 15, 150, 20);
+		JLmodsselected.setHorizontalAlignment(SwingConstants.CENTER);
 		JLmodsselected.setText("Mods selectionnés");
 		modding.add(JLmodsselected);
 		
@@ -199,22 +305,42 @@ public class ModsProfilPanel extends JPanel {
 			}
 			
 			public void mouseReleased(MouseEvent arg0) {
-				List<Mod> selection;
+				List<ModVersion> selection;
 				Integer nbmax2;
 				Integer i2;
 				
-				selection = Lmods.getSelectedValuesList();
+				selection = LmodsVersions.getSelectedValuesList();
 				if (selection != null){
-					for (Mod uneselection: selection){
+					for (ModVersion uneselection: selection){
 						i2 = 0;
-						nbmax2 = DLMmodsselected.size();
-						while(!DLMmodsselected.isEmpty() && nbmax2 > i2 && uneselection.getLabel().compareTo(DLMmodsselected.get(i2).getLabel()) > 0){
+						int i = 0;
+						while(i < DLMmodsselected.getSize() && DLMmodsselected.getElementAt(i).getUnMod() != uneselection.getUnMod()){
+							i++;
+						}
+						if (i < DLMmodsselected.getSize()){
+							uneselection.getUnMod().addUnModVersion(((DefaultListModel<ModVersion>) DLMmodsselected).get(i));
+							((DefaultListModel<ModVersion>) DLMmodsselected).remove(i);
+						}
+						
+						nbmax2 = DLMmodsselected.getSize();
+						while(!((DefaultListModel<ModVersion>) DLMmodsselected).isEmpty() && nbmax2 > i2 && uneselection.getLabel().compareTo(((DefaultListModel<ModVersion>) DLMmodsselected).get(i2).getLabel()) > 0){
 							i2++;
 						}
-						DLMmodsselected.add(i2, uneselection);
-						DLMmods.removeElement(uneselection);
+						((DefaultListModel<ModVersion>) DLMmodsselected).add(i2, uneselection);
+						uneselection.getUnMod().getLesModVersion().remove(uneselection);
+						
+						DLMmodsVersions.removeAllElements();
+						Mod selection1 = Lmods.getSelectedValue();
+						if (selection1 != null){
+							for(ModVersion unModVersion : selection1.getLesModVersion()){
+								DLMmodsVersions.addElement(unModVersion);
+							}
+						
+						}
 					}
 				}
+				updateProfile();
+				System.out.println(DLMmodsselected.getSize());
 			}	  
 		});
 		modding.add(JBselect_mod);
@@ -237,7 +363,7 @@ public class ModsProfilPanel extends JPanel {
 			}
 			
 			public void mouseReleased(MouseEvent e) {
-				List<Mod> selection;
+				List<ModVersion> selection;
 				Integer nbmax;
 				Integer nbmax2;
 				Integer i2;
@@ -251,17 +377,30 @@ public class ModsProfilPanel extends JPanel {
 						while(!DLMmods.isEmpty() && nbmax2 > i2 && selection.get(i).getLabel().compareTo(DLMmods.get(i2).getLabel()) > 0){
 							i2++;
 						}
-						DLMmods.add(i2, selection.get(i));
-						DLMmodsselected.removeElement(selection.get(i));
+						if (!DLMmods.contains(selection.get(i).getUnMod())){
+							DLMmods.add(i2, selection.get(i).getUnMod());
+						}
+						DLMmods.get(DLMmods.indexOf(selection.get(i).getUnMod())).getLesModVersion().add(selection.get(i));
+						DLMmodsVersions.removeAllElements();
+						Mod selection1 = Lmods.getSelectedValue();
+						if (selection1 != null){
+							for(ModVersion unModVersion : selection1.getLesModVersion()){
+								DLMmodsVersions.addElement(unModVersion);
+							}
+						}
+						Profile unProfile = (Profile) JCBprofile.getSelectedItem();
+						unProfile.getMods().remove(selection.get(i));
+						((DefaultListModel<ModVersion>) DLMmodsselected).removeElement(selection.get(i));
 					}
 				}
+//				updateProfile();
 			}
 		});
 		modding.add(JBdeselect_mod);
 			  
-		DLMmodsselected = new DefaultListModel<Mod>();
-		Lmodsselected = new JList<Mod>(DLMmodsselected);
-		Lmodsselected.setCellRenderer(new Mod_Renderer());
+		DLMmodsselected = new DefaultListModel<ModVersion>();
+		Lmodsselected = new JList<ModVersion>(DLMmodsselected);
+		Lmodsselected.setCellRenderer(new ModVersionselected());
 		Lmodsselected.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		Lmodsselected.setLayoutOrientation(JList.VERTICAL);
 		Lmodsselected.setVisibleRowCount(-1);
@@ -271,7 +410,7 @@ public class ModsProfilPanel extends JPanel {
 		modding.add(JSPmodsselected);
 		
 		DLMmodsVersions = new DefaultListModel<ModVersion>();
-		JList<ModVersion> LmodsVersions = new JList<ModVersion>(DLMmodsVersions);
+		LmodsVersions = new JList<ModVersion>(DLMmodsVersions);
 		LmodsVersions.setCellRenderer(new ModVersion_Renderer());
 		LmodsVersions.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		LmodsVersions.setLayoutOrientation(JList.VERTICAL);
@@ -280,25 +419,91 @@ public class ModsProfilPanel extends JPanel {
 		JScrollPane JSPmodsVersions = new JScrollPane(LmodsVersions);
 		JSPmodsVersions.setBounds(165, 40, 150, 300);
 		modding.add(JSPmodsVersions);
+		
+		JButton JBtelecharger = new JButton("Télécharger");
+		JBtelecharger.setBounds(365, 350, 200, 20);
+		JBtelecharger.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				
+				DownloadProfile.downloadProfile();
+			}
+			
+		});
+		modding.add(JBtelecharger);
+		
 //		jpanel modding-------------------------------------------------
+		
+//		traitement-----------------------------------------------------
+		for (Profile unprofile: FileProfile.lesProfils){
+			JCBprofile.addItem(unprofile);
+		}
+		int i = 0;
+		System.out.println(((Profile)JCBprofile.getSelectedItem()).getUneGameVersion());
+		while(i < JCBgameversion.getItemCount() && JCBgameversion.getItemAt(i).getId() != ((Profile) JCBprofile.getSelectedItem()).getUneGameVersion().getId()){
+			i++;
+		}
+//		System.out.println(i);
+		if(i < JCBgameversion.getItemCount()){
+			JCBgameversion.setSelectedIndex(i);
+		}
+		ajoutGameVersionProfile();
+		updateJListJCombobox();
+	}
+//	-------------------------------------------------------------------------------------------------------------------------
+	public static void ajoutGameVersionProfile(){
+		if(((Profile)JCBprofile.getSelectedItem()).getUneGameVersion() == null){
+			((Profile)JCBprofile.getSelectedItem()).setUneGameVersion((GameVersion) JCBgameversion.getSelectedItem());
+		}
+		else{
+			JCBgameversion.setSelectedItem(((Profile)JCBprofile.getSelectedItem()).getUneGameVersion());
+		}
 		try{
-			this.addLGameVersion(LoadingDatabase.lesGameVersion);
+			ModsProfilPanel.addLmods();
 		}catch(Exception e){
 			
 		}
-		
-		
 	}
-//	-------------------------------------------------------------------------------------------------------------------------
-	public void addLGameVersion(ArrayList<GameVersion> desgameversion){
-	  
-		List<Mod> listmod;
-				
-		for (GameVersion unegameversion: desgameversion){
+	public static void addLGameVersion(){
+			
+		if(JCBgameversion.getItemCount() > 0){
+			JCBgameversion.removeAll();
+		}
+		
+		for (GameVersion unegameversion: LoadingDatabase.lesGameVersion){
 			JCBgameversion.addItem(unegameversion);
 		}
+	}
+	public static void addLmods(){
+		ArrayList<Mod> listmod;
+		
 		laselection = (GameVersion) JCBgameversion.getSelectedItem();
-		listmod = laselection.getLesMods();
+		listmod = (ArrayList<Mod>) laselection.getLesMods();
 		  
 		for (Mod unmod: listmod){
 			DLMmods.addElement(unmod);
@@ -309,7 +514,78 @@ public class ModsProfilPanel extends JPanel {
 		return DLMmods;
 	}
 	
-	public  JComboBox<Profile> getJCBprofile(){
-		return this.JCBprofile;
+	public void updateProfile(){
+		Profile unProfile = (Profile) JCBprofile.getSelectedItem();
+		unProfile.getMods().clear();
+		for(int i = 0; i < Lmodsselected.getModel().getSize(); i++){
+			unProfile.getMods().add(Lmodsselected.getModel().getElementAt(i));
+		}
+
+	}
+	
+	public static void updateJListJCombobox(){
+		int i = 0;
+		((DefaultListModel<ModVersion>) DLMmodsVersions).removeAllElements();
+		
+		while(i < ModsProfilPanel.JCBgameversion.getItemCount() && !ModsProfilPanel.JCBgameversion.getItemAt(i).equals(((Profile)JCBprofile.getSelectedItem()).getUneGameVersion())){
+			i++;
+		}
+		
+		if(i < ModsProfilPanel.JCBgameversion.getItemCount()){
+			ModsProfilPanel.JCBgameversion.setSelectedIndex(i);
+			ArrayList<Mod> listmod;
+			DLMmods.removeAllElements();
+			
+			for (i = 0 ; i < DLMmodsselected.size(); i++){
+				int i2 = 0;
+				
+				while(LoadingDatabase.lesGameVersion.get(i2).getId() != DLMmodsselected.get(i).getUnMod().getUneVersion().getId()){
+					i2++;
+				}
+				GameVersion uneGameVersion = LoadingDatabase.lesGameVersion.get(i2);
+				int i3 = 0;
+				
+				while(uneGameVersion.getLesMods().get(i3).getId() != DLMmodsselected.get(i).getUnMod().getId()){
+					i3++;
+				}
+				uneGameVersion.getLesMods().get(i3).addUnModVersion(DLMmodsselected.get(i));
+			}
+			((DefaultListModel<ModVersion>) DLMmodsselected).removeAllElements();
+			i = 0;
+			
+			while(LoadingDatabase.lesGameVersion.get(i).getId() != ((GameVersion) JCBgameversion.getSelectedItem()).getId()){
+				i++;
+			}
+			laselection = LoadingDatabase.lesGameVersion.get(i);
+			listmod = (ArrayList<Mod>) laselection.getLesMods();
+			
+			for (Mod unmod: listmod){
+				DLMmods.addElement(unmod);
+			}
+			
+			Profile unProfile = (Profile) JCBprofile.getSelectedItem();		
+			
+			for(ModVersion unModVersion : unProfile.getMods()){
+				i = 0;
+				
+				while(i < DLMmods.size() && !DLMmods.getElementAt(i).getId().equals(unModVersion.getUnMod().getId())){
+					i++;
+				}
+				if(i < DLMmods.size()){
+					Mod unMod = DLMmods.getElementAt(i);
+					i = 0;
+					
+					while(i < unMod.getLesModVersion().size() && !unMod.getLesModVersion().get(i).equals(unModVersion)){
+						i++;
+					}
+					
+					if(i < unMod.getLesModVersion().size()){
+						unMod.getLesModVersion().remove(i);
+					}
+				}
+				DLMmodsselected.addElement(unModVersion);
+			}	
+		}
+		
 	}
 }

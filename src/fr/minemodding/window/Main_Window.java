@@ -1,11 +1,12 @@
 package fr.minemodding.window;
-import java.util.List;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
-import fr.minemodding.data.GameVersion;
-import fr.minemodding.data.Profile;
+
+import fr.minemodding.core.FileProfile;
 
 public class Main_Window extends JFrame {
 	
@@ -18,24 +19,31 @@ public class Main_Window extends JFrame {
 		
 	public Main_Window() {
 		
-		
-		
 		jtp = new JTabbedPane();
 		accueilPanel = new AccueilPanel();
 		modsProfilPanel = new ModsProfilPanel();
-		modsPackPanel = new ModsPackPanel();
+//		modsPackPanel = new ModsPackPanel();
 		
 		
 	    jtp.addTab("Accueil", accueilPanel);
 	    jtp.addTab("Mods et Profil", modsProfilPanel);
-	    jtp.addTab("ModsPack", modsPackPanel);
+//	    jtp.addTab("ModsPack", modsPackPanel);
 	    
 		this.setVisible(true);
 		this.setTitle("MineModding");
 		this.setSize(1200, 700);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent e){
+				FileProfile.lesProfils.clear();
+				for (int i = 0; i < ModsProfilPanel.JCBprofile.getItemCount() ; i++){
+					FileProfile.lesProfils.add(ModsProfilPanel.JCBprofile.getItemAt(i));
+				}
+				FileProfile.createFileProfile();
+				System.exit(0);
+			}
+		});
 		this.add(jtp);
 	}
 }

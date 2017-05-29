@@ -18,7 +18,6 @@ public class Mod {
 	}
 	
 	public Mod(int id, String label, List<ModVersion> lesmodVersion, GameVersion uneVersion) {
-		super();
 		this.id = id;
 		this.label = label;
 		lesModVersion = lesmodVersion;

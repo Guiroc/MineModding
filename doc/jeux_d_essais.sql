@@ -1,7 +1,15 @@
 /*nom de la base : test*/
 
-drop table mod;
-drop table gameversion;
+--drop database test;
+
+CREATE DATABASE test
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'French_France.1252'
+    LC_CTYPE = 'French_France.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
 
 
 create table gameversion(
@@ -10,6 +18,47 @@ create table gameversion(
 	
 	constraint pk_gameversion primary key (gameversion_id)
 );
+
+create table mod(
+	mod_id serial,
+	mod_label varchar(50) not null,
+	
+	constraint pk_mod primary key (mod_id),
+	constraint unique_mod_label unique (mod_label),
+		
+);
+
+
+create table modversion(
+	modversion_id serial,
+	modversion_label varchar(20) not null,
+	
+	modversion_unMod int,
+	modversion_uneVersion int,
+	
+	constraint pk_modversion primary key (modversion_id),
+	constraint fk_unMod foreign key (modversion_unMod) references mod (mod_id),
+	constraint fk_modversion_uneVersion foreign key (modversion_uneVersion) references gameversion (gameversion_id)
+);
+
+--create table typemodversion(
+--typemodversion_id int,
+--typemodversion_libelle varchar(50),
+--
+--constraint pk_typemodversion primary key (typemodversion_id));
+
+---------------------------------------------------------------------------------
+
+create view SoftwareCheckUpdates
+as select *
+from gameversion
+inner join modversion
+on gameversion_id = modversion_uneVersion
+inner join mod
+on mod_id = modversion_unmod
+order by gameversion_label asc, mod_label, modversion_label;
+
+--------------------------------------------------------------------------------
 
 insert into gameversion (gameversion_label) values('1.7.2');
 insert into gameversion (gameversion_label) values('1.7.4');
@@ -39,119 +88,91 @@ insert into gameversion (gameversion_label) values('1.10.1');
 insert into gameversion (gameversion_label) values('1.10.2');
 insert into gameversion (gameversion_label) values('1.11');
 
-create table mod(
-	mod_id serial,
-	mod_label varchar(50) not null,
-	
-	mod_uneVersion int,
-	
-	constraint pk_mod primary key (mod_id),
-	constraint fk_mod_uneVersion foreign key (mod_uneVersion) references gameversion (gameversion_id)
-		
-);
+insert into mod (mod_label) values ('industrial craft');
+insert into mod (mod_label) values ('buildcraft');
+insert into mod (mod_label) values ('applied energistic');
+insert into mod (mod_label) values ('agricraft');
+insert into mod (mod_label) values ('logistic pipes');
+insert into mod (mod_label) values ('JourneyMap');
+insert into mod (mod_label) values ('Tinkers Construct');
+insert into mod (mod_label) values ('Extra Utilities');
+insert into mod (mod_label) values ('Mantle');
+insert into mod (mod_label) values ('Storage Drawers');
+insert into mod (mod_label) values ('Iron Chests');
+insert into mod (mod_label) values ('Chisel');
+insert into mod (mod_label) values ('Ender IO');
+insert into mod (mod_label) values ('Immersive Engineering');
+insert into mod (mod_label) values ('RFTools');
+insert into mod (mod_label) values ('Baubles');
+insert into mod (mod_label) values ('Inventory Tweaks');
+insert into mod (mod_label) values ('Morpheus');
+insert into mod (mod_label) values ('RFTools');
+insert into mod (mod_label) values ('Baubles');
 
-insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 8);
-insert into mod (mod_label, mod_uneVersion) values ('buildcraft', 8);
-insert into mod (mod_label, mod_uneVersion) values ('applied energistic', 8);
-insert into mod (mod_label, mod_uneVersion) values ('agricraft', 8);
-insert into mod (mod_label, mod_uneVersion) values ('logistic pipes', 8);
-insert into mod (mod_label, mod_uneVersion) values ('JourneyMap', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Tinkers Construct', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Extra Utilities', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Mantle', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Storage Drawers', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Iron Chests', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Chisel', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Ender IO', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Immersive Engineering', 8);
-insert into mod (mod_label, mod_uneVersion) values ('RFTools', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Baubles', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Inventory Tweaks', 8);
-insert into mod (mod_label, mod_uneVersion) values ('Morpheus', 8);
-insert into mod (mod_label, mod_uneVersion) values ('RFTools', 11);
-insert into mod (mod_label, mod_uneVersion) values ('Baubles', 11);
-insert into mod (mod_label, mod_uneVersion) values ('Inventory Tweaks', 11);
-insert into mod (mod_label, mod_uneVersion) values ('Morpheus', 11);
-insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 9);
-insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 11);
-insert into mod (mod_label, mod_uneVersion) values ('industrial craft', 2);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.2', 1, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 1, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.3', 1, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.7', 1, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.1.2', 1, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.9.8', 1, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.2', 2, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 2, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.3', 2, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.7', 2, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.1.2', 2, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.9.8', 2, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.2', 3, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 3, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.3', 3, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.7', 3, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.1.2', 3, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.9.8', 3, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.2', 4, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 4, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.3', 4, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.7', 4, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.1.2', 4, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.9.8', 4, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.2', 5, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 5, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.3', 5, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.7', 5, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.1.2', 5, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.9.8', 5, 4);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.2', 6, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 6, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.3', 6, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.7', 6, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.1.2', 6, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.9.8', 6, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.2', 7, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 7, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.3', 7, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.7', 7, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.1.2', 7, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.9.8', 7, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.3', 8, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 8, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.5.3', 8, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.4.7', 8, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.5.2', 8, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.4.8', 8, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.3', 9, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 9, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.5.3', 9, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.4.7', 9, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.5.2', 9, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.4.8', 9, 10);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.10.8', 9, 10);
 
-create table modversion(
-	modversion_id serial,
-	modversion_label varchar(20) not null,
-	
-	modversion_unMod int,
-	
-	constraint pk_modversion primary key (modversion_id),
-	constraint fk_unMod foreign key (modversion_unMod) references mod (mod_id)
-);
+--------------------------------------------------------------------------------
 
-insert into modversion (modversion_label, modversion_unMod) values ('1.1.2', 1);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 1);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.3', 1);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.7', 1);
-insert into modversion (modversion_label, modversion_unMod) values ('2.1.2', 1);
-insert into modversion (modversion_label, modversion_unMod) values ('2.9.8', 1);
-insert into modversion (modversion_label, modversion_unMod) values ('1.1.2', 2);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 2);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.3', 2);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.7', 2);
-insert into modversion (modversion_label, modversion_unMod) values ('2.1.2', 2);
-insert into modversion (modversion_label, modversion_unMod) values ('2.9.8', 2);
-insert into modversion (modversion_label, modversion_unMod) values ('1.1.2', 3);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 3);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.3', 3);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.7', 3);
-insert into modversion (modversion_label, modversion_unMod) values ('2.1.2', 3);
-insert into modversion (modversion_label, modversion_unMod) values ('2.9.8', 3);
-insert into modversion (modversion_label, modversion_unMod) values ('1.1.2', 4);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 4);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.3', 4);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.7', 4);
-insert into modversion (modversion_label, modversion_unMod) values ('2.1.2', 4);
-insert into modversion (modversion_label, modversion_unMod) values ('2.9.8', 4);
-insert into modversion (modversion_label, modversion_unMod) values ('1.1.2', 5);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 5);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.3', 5);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.7', 5);
-insert into modversion (modversion_label, modversion_unMod) values ('2.1.2', 5);
-insert into modversion (modversion_label, modversion_unMod) values ('2.9.8', 5);
-insert into modversion (modversion_label, modversion_unMod) values ('1.1.2', 6);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 6);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.3', 6);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.7', 6);
-insert into modversion (modversion_label, modversion_unMod) values ('2.1.2', 6);
-insert into modversion (modversion_label, modversion_unMod) values ('2.9.8', 6);
-insert into modversion (modversion_label, modversion_unMod) values ('1.1.2', 7);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 7);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.3', 7);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.7', 7);
-insert into modversion (modversion_label, modversion_unMod) values ('2.1.2', 7);
-insert into modversion (modversion_label, modversion_unMod) values ('2.9.8', 7);
-insert into modversion (modversion_label, modversion_unMod) values ('1.1.3', 8);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 8);
-insert into modversion (modversion_label, modversion_unMod) values ('1.5.3', 8);
-insert into modversion (modversion_label, modversion_unMod) values ('1.4.7', 8);
-insert into modversion (modversion_label, modversion_unMod) values ('2.5.2', 8);
-insert into modversion (modversion_label, modversion_unMod) values ('2.4.8', 8);
-insert into modversion (modversion_label, modversion_unMod) values ('1.1.3', 9);
-insert into modversion (modversion_label, modversion_unMod) values ('1.2.2', 9);
-insert into modversion (modversion_label, modversion_unMod) values ('1.5.3', 9);
-insert into modversion (modversion_label, modversion_unMod) values ('1.4.7', 9);
-insert into modversion (modversion_label, modversion_unMod) values ('2.5.2', 9);
-insert into modversion (modversion_label, modversion_unMod) values ('2.4.8', 9);
----------------------------------------------------------------
-create view SoftwareCheckUpdates
-as select *
-from gameversion
-inner join mod
-on gameversion_id = mod_uneVersion
-inner join modversion
-on mod_id = modversion_unmod
-order by gameversion_label asc, mod_label, modversion_label;
-
-create table typemodversion(
-typemodversion_id int,
-typemodversion_libelle varchar(50),
-
-constraint pk_typemodversion primary key (typemodversion_id));
+create user software with
+  LOGIN
+  NOSUPERUSER
+  NOINHERIT
+  NOCREATEDB
+  NOCREATEROLE
+  NOREPLICATION;
+  
+grant select on SoftwareCheckUpdates to software;

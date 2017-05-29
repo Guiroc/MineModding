@@ -1,26 +1,24 @@
 package fr.minemodding.data;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Profile {
 
 	private String name;
-	private String gameDir;
-	private String lastVersionId;
-	private String javaDir;
-	private String javaArgs;
-	private List<Mod> mods;
-	private ModsPackVersion modsPackVersion;
+	private GameVersion uneGameVersion;
+	private ArrayList<ModVersion> lesModsVersion;
+//	private ModsPackVersion modsPackVersion;
 	
-	public Profile(String name, String gameDir, String lastVersionId, String javaDir, String javaArgs) {
+	public Profile(String name) {
 		this.name = name;
-		this.gameDir = gameDir;
-		this.lastVersionId = lastVersionId;
-		this.javaDir = javaDir;
-		this.javaArgs = javaArgs;
-		this.mods = new ArrayList<Mod>();
-		this.modsPackVersion = null;
+		this.uneGameVersion = null;
+		this.lesModsVersion = new ArrayList<ModVersion>();
+	}
+	
+	public Profile(String name, GameVersion uneGameVersion, ArrayList<ModVersion> desModVersion) {
+		this.name = name;
+		this.uneGameVersion = uneGameVersion;
+		this.lesModsVersion = desModVersion;
 	}
 
 	public String getName() {
@@ -31,51 +29,27 @@ public class Profile {
 		this.name = name;
 	}
 
-	public String getGameDir() {
-		return gameDir;
+	public ArrayList<ModVersion> getMods() {
+		return lesModsVersion;
 	}
 
-	public void setGameDir(String gameDir) {
-		this.gameDir = gameDir;
+	public void setMods(ModVersion mods) {
+		this.lesModsVersion.add(mods);
 	}
 
-	public String getLastVersionId() {
-		return lastVersionId;
+	public GameVersion getUneGameVersion() {
+		return uneGameVersion;
 	}
 
-	public void setLastVersionId(String lastVersionId) {
-		this.lastVersionId = lastVersionId;
+	public void setUneGameVersion(GameVersion uneGameVersion) {
+		this.uneGameVersion = uneGameVersion;
 	}
 
-	public String getJavaDir() {
-		return javaDir;
-	}
-
-	public void setJavaDir(String javaDir) {
-		this.javaDir = javaDir;
-	}
-
-	public String getJavaArgs() {
-		return javaArgs;
-	}
-
-	public void setJavaArgs(String javaArgs) {
-		this.javaArgs = javaArgs;
-	}
-
-	public List<Mod> getMods() {
-		return mods;
-	}
-
-	public void setMods(Mod mods) {
-		this.mods.add(mods);
-	}
-
-	public ModsPackVersion getModsPackVersion() {
-		return modsPackVersion;
-	}
-
-	public void setModsPackVersion(ModsPackVersion modsPackVersion) {
-		this.modsPackVersion = modsPackVersion;
-	}
+//	public ModsPackVersion getModsPackVersion() {
+//		return modsPackVersion;
+//	}
+//
+//	public void setModsPackVersion(ModsPackVersion modsPackVersion) {
+//		this.modsPackVersion = modsPackVersion;
+//	}
 }
