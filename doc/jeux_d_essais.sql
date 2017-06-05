@@ -32,13 +32,60 @@ create table mod(
 create table modversion(
 	modversion_id serial,
 	modversion_label varchar(20) not null,
+	modversion_date date,
 	
-	modversion_unMod int,
-	modversion_uneVersion int,
+	modversion_unmod int,
+	modversion_uneversion int,
 	
 	constraint pk_modversion primary key (modversion_id),
-	constraint fk_unMod foreign key (modversion_unMod) references mod (mod_id),
-	constraint fk_modversion_uneVersion foreign key (modversion_uneVersion) references gameversion (gameversion_id)
+	constraint fk_unmod foreign key (modversion_unmod) references mod (mod_id),
+	constraint fk_modversion_uneversion foreign key (modversion_uneversion) references gameversion (gameversion_id)
+);
+
+create table modpack(
+	modpack_id serial,
+	modpack_label varchar(50) not null,
+	
+	constraint pk_modpack primary key (modpack_id),
+	constraint unique_modpack_label unique (modpack_label)
+		
+);
+
+
+create table modpackversion(
+	modpackversion_id serial,
+	modpackversion_label varchar(20) not null,
+	modpackversion_date date,
+	
+	modpackversion_unmodpack int,
+	modpackversion_uneversion int,
+	
+	constraint pk_modpackversion primary key (modpackversion_id),
+	constraint fk_unmodpack foreign key (modpackversion_unmodpack) references modpack (modpack_id),
+	constraint fk_modpackversion_uneversion foreign key (modpackversion_uneversion) references gameversion (gameversion_id)
+);
+
+create table texturepack(
+	texturepack_id serial,
+	texturepack_label varchar(50) not null,
+	
+	constraint pk_texturepack primary key (texturepack_id),
+	constraint unique_texturepack_label unique (texturepack_label)
+		
+);
+
+
+create table texturepackversion(
+	texturepackversion_id serial,
+	texturepackversion_label varchar(20) not null,
+	texturepackversion_date date,
+	
+	texturepackversion_untexturepack int,
+	texturepackversion_uneversion int,
+	
+	constraint pk_texturepackversion primary key (texturepackversion_id),
+	constraint fk_untexturepack foreign key (texturepackversion_untexturepack) references texturepack (texturepack_id),
+	constraint fk_texturepackversion_uneversion foreign key (texturepackversion_uneversion) references gameversion (gameversion_id)
 );
 
 --create table typemodversion(
@@ -115,6 +162,12 @@ insert into modversion (modversion_label, modversion_unMod, modversion_uneVersio
 insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.7', 1, 1);
 insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.1.2', 1, 1);
 insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.9.8', 1, 1);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.2', 1, 2);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 1, 2);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.3', 1, 2);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.7', 1, 2);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.1.2', 1, 2);
+insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.9.8', 1, 2);
 insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.1.2', 2, 1);
 insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.2', 2, 1);
 insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('1.2.3', 2, 1);
@@ -165,6 +218,22 @@ insert into modversion (modversion_label, modversion_unMod, modversion_uneVersio
 insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.4.8', 9, 10);
 insert into modversion (modversion_label, modversion_unMod, modversion_uneVersion) values ('2.10.8', 9, 10);
 
+
+insert into texturepack (texturepack_label) values ('Faithful');
+insert into texturepack (texturepack_label) values ('Smoothcraft');
+
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('1.1.2', 1, 1, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('1.2.2', 1, 1, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('1.2.3', 1, 1, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('1.2.7', 1, 1, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('2.1.2', 1, 1, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('2.9.8', 1, 1, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('1.1.2', 2, 2, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('1.2.2', 2, 2, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('1.2.3', 2, 2, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('1.2.7', 2, 2, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('2.1.2', 2, 2, '2017-06-01');
+insert into texturepackversion (texturepackversion_label, texturepackversion_untexturepack, texturepackversion_uneVersion, texturepackversion_date) values ('2.9.8', 2, 2, '2017-06-01');
 --------------------------------------------------------------------------------
 
 create user software with

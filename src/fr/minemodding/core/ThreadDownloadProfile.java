@@ -28,7 +28,7 @@ public class ThreadDownloadProfile extends Thread{
 			i++;
 				((Window_Alert) boiteDialogue).setTexte_JL_texte("Téléchargement de " + i + " sur " + nb + ".");
 			try {
-				URL unUrl = new URL("http://127.0.0.1/" + unProfile.getUneGameVersion().getLabel() + "/" + unModVersion.getUnMod().getLabel().replaceAll(" ", "_") + "/" + unProfile.getUneGameVersion().getLabel() + "_" + unModVersion.getUnMod().getLabel().replaceAll(" ", "_") + "_" + unModVersion.getLabel() + ".jar");
+				URL unUrl = new URL("http://127.0.0.1/mods/" + unProfile.getUneGameVersion().getLabel() + "/" + unModVersion.getUnMod().getLabel().replaceAll(" ", "_") + "/" + unProfile.getUneGameVersion().getLabel() + "_" + unModVersion.getUnMod().getLabel().replaceAll(" ", "_") + "_" + unModVersion.getLabel() + ".jar");
 				System.out.println(unUrl);
 				DownloadProfile.download(unUrl, unFile);
 			} catch (IOException e) {
